@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+    --color-text-blue: #00407C;
+}
+
+.scroll-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.scroll-content {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: scrollLoop 20s linear infinite;
+}
+
+@keyframes scrollLoop {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-x {
+    animation: scrollLoop 10s linear infinite;
+    white-space: nowrap;
+}
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+p{
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+#title-feature{
+    color: #00407C;
+    font-size: 25px;
+    font-weight: 600;
+}
