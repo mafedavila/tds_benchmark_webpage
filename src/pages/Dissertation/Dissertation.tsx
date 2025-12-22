@@ -11,6 +11,11 @@ const Dissertation = () => {
                 <p className="text-lg text-gray-700 text-center mt-4">
                     By systematically assessing multiple synthesis techniques, this work provides quantitative insights and practical guidance for researchers and practitioners looking to integrate synthetic data solutions. Read the dissertation below or download it here.
                 </p>
+                <a href="/2025_Dissertation_Davila.pdf" 
+                    download 
+                    className="w-full text-center mt-6 inline-block px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    Download Dissertation (PDF)
+                </a>
             </div>
         </Layout>
     );
