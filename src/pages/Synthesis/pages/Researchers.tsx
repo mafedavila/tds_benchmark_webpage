@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Layout } from "../../Layout";
 import RadarChartComponent from "./components/RadarChartComponent";
-import { getFiles, toolCharacteristics, steps, getNextStep, getRecommendations } from "./utils";
-
+import { getFiles, toolCharacteristics, steps, getNextStep, getRecommendations } from "./utils_Researchers";
 
 export default function DecisionGuide() {
     const [answers, setAnswers] = useState<Record<string, string>>({});
