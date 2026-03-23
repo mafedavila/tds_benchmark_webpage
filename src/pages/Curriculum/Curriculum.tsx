@@ -1,6 +1,7 @@
 import { Layout } from "../Layout";
 import { SkillCard } from "./components/SkillCard";
 import InfiniteScroll from "./components/InfiniteScroll";
+import profileImg from "../../assets/profile.jpg";
 
 const Curriculum = () => {
     return (
@@ -11,15 +12,12 @@ const Curriculum = () => {
                 </h1>
 
                 <div className="w-full flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
-
-                    {/* Imagen responsive */}
                     <img 
-                        src="src/assets/profile.jpg"
+                        src={profileImg}
                         alt="Profile" 
                         className="w-44 h-44 md:w-60 md:h-60 object-cover rounded-lg shadow-lg"
                     />
 
-                    {/* Descripción */}
                     <div className="flex flex-col w-full space-y-4">
                         <h2 className="font-bold text-3xl">Maria F. Davila R.</h2>
                         <p className="text-gray-700 leading-relaxed">
@@ -32,7 +30,6 @@ const Curriculum = () => {
                     </div>
                 </div>
 
-                {/* EDUCATION */}
                 <div className="w-full mt-12">
                     <h2 className="font-bold text-2xl mb-4">Education</h2>
                     <ul className="list-disc list-inside text-gray-700 space-y-2">
@@ -44,12 +41,10 @@ const Curriculum = () => {
 
                 <div className="border border-gray-300 w-full my-10" />
 
-                {/* WORK EXPERIENCE */}
                 <div className="w-full">
                     <h2 className="font-bold text-2xl mb-4">Work Experience</h2>
                     <ul className="space-y-5 text-gray-700">
-
-                        {[  
+                        {[
                             { role: "Process and Data Manager", company: "EWE Gasspeicher Oldenburg", date: "06.2025 - Currently" },
                             { role: "Energy Efficiency Expert", company: "ArcelorMittal Bremen", date: "09.2024 - 05.2025" },
                             { role: "Researcher", company: "OFFIS Institute for Information Technology", date: "01.2022 - 08.2024" },
@@ -69,11 +64,9 @@ const Curriculum = () => {
                     </ul>
                 </div>
 
-                {/* SKILLS */}
                 <div className="w-full mt-14">
                     <h2 className="font-bold text-2xl mb-6">Skills</h2>
 
-                    {/* Grupo 1 */}
                     <div className="mb-10">
                         <p className="mb-3 text-gray-800 font-medium">Datenanalyse, Cloud Computing, Database Management und FrontEnd</p>
                         <InfiniteScroll>
@@ -87,7 +80,6 @@ const Curriculum = () => {
                         </InfiniteScroll>
                     </div>
 
-                    {/* Grupo 2 */}
                     <div className="mb-10">
                         <p className="mb-3 text-gray-800 font-medium">Modellierung, Simulation und Szenarioanalyse</p>
                         <InfiniteScroll>
@@ -100,7 +92,6 @@ const Curriculum = () => {
                         </InfiniteScroll>
                     </div>
 
-                    {/* Grupo 3 */}
                     <div className="mb-10">
                         <p className="mb-3 text-gray-800 font-medium">Design und Computer-aided Design (CAD)</p>
                         <InfiniteScroll>
@@ -112,9 +103,7 @@ const Curriculum = () => {
                             ))}
                         </InfiniteScroll>
                     </div>
-
                 </div>
-
             </div>
         </Layout>
     );

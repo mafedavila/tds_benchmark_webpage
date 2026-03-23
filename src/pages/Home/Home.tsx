@@ -2,6 +2,12 @@ import { Layout } from '../Layout';
 import { Feature } from './components/Feature';
 import RadarChartComponent from './components/RadarChart';
 
+import feature1Img from '../../assets/feature1.png';
+import feature2Img from '../../assets/feature2.jpg';
+import feature3Img from '../../assets/feature3.jpg';
+import computerImg from '../../assets/computer.jpg';
+import diagramImg from '../../assets/diagram.svg';
+
 const toolCharacteristics: Record<string, { label: string; value: number }[]> = {
     "Sampling": [
         { label: "Missing Values", value: 8 },
@@ -162,24 +168,27 @@ const Home = () => {
         <Layout>
             <div className="w-full h-full flex flex-col">
                 <div className="w-full bg-linear-to-r from-[#048EEC] to-[#18C8FE] flex flex-col md:flex-row justify-between items-center md:items-start">
-                    {/* LEFT TEXT */}
                     <div className="w-full md:w-[60%] flex flex-col text-white px-5 md:pl-18 py-12 md:py-20 space-y-6">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
                             Your Guide to Artificial Tables
                         </h2>
                         <p className="text-sm sm:text-base md:text-md font-light">
-                        Answer a few questions about your dataset to receive personalized tool recommendations from our TDS Benchmark.
-                        Generate synthetic datasets, assess their quality, and compare results across state-of-the-art methods. <br /><br />
-                        Are you a researcher developing a new TDS tool? Use our benchmarking framework to evaluate your tool against state-of-the-art tools.
+                            Answer a few questions about your dataset to receive personalized tool recommendations from our TDS Benchmark.
+                            Generate synthetic datasets, assess their quality, and compare results across state-of-the-art methods. <br /><br />
+                            Are you a researcher developing a new TDS tool? Use our benchmarking framework to evaluate your tool against state-of-the-art tools.
                         </p>
 
                         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-4">
-                            <button className="bg-text-blue text-white px-6 py-3 rounded-lg w-full sm:w-auto"
-                                onClick={() => window.location.href = "/synthesis/researchers"}>
+                            <button
+                                className="bg-text-blue text-white px-6 py-3 rounded-lg w-full sm:w-auto"
+                                onClick={() => window.location.href = "/synthesis/researchers"}
+                            >
                                 For Researchers
                             </button>
-                            <button className="bg-white text-text-blue font-semibold px-6 py-3 rounded-lg w-full sm:w-auto"
-                                onClick={() => window.location.href = "/synthesis/general-users"}>
+                            <button
+                                className="bg-white text-text-blue font-semibold px-6 py-3 rounded-lg w-full sm:w-auto"
+                                onClick={() => window.location.href = "/synthesis/general-users"}
+                            >
                                 For Users
                             </button>
                         </div>
@@ -187,17 +196,20 @@ const Home = () => {
                 </div>
 
                 <div className="w-full h-fit flex flex-col md:flex-row items-start justify-center gap-10 px-15 py-20">
-                    <Feature img="src/assets/feature1.png" 
-                        title="Effortless Table Generation" 
-                        description="Generate high-quality synthetic tables from your original dataset — no need to dive into complex TDS models or tools." 
+                    <Feature
+                        img={feature1Img}
+                        title="Effortless Table Generation"
+                        description="Generate high-quality synthetic tables from your original dataset — no need to dive into complex TDS models or tools."
                     />
-                    <Feature img="src/assets/feature2.jpg" 
-                        title="Use-Case-Specific Evaluation" 
+                    <Feature
+                        img={feature2Img}
+                        title="Use-Case-Specific Evaluation"
                         description="Assess how useful your synthetic data is for your specific use case through clear, visual results and performance insights."
                     />
-                    <Feature img="src/assets/feature3.jpg" 
-                        title="Benchmark your TDS Tool" 
-                        description="Use our framework to evaluate your TDS tool against the a comprehensive taxonomy — including sampling, Bayesian networks, GANs, diffusion models, and Transformer-based models." 
+                    <Feature
+                        img={feature3Img}
+                        title="Benchmark your TDS Tool"
+                        description="Use our framework to evaluate your TDS tool against the a comprehensive taxonomy — including sampling, Bayesian networks, GANs, diffusion models, and Transformer-based models."
                     />
                 </div>
 
@@ -217,16 +229,17 @@ const Home = () => {
                             <li>Do you have a specific <b>privacy budget</b> (like differential privacy)?</li>
                             <li>What <b>computing resources</b> do you have access to (e.g., GPU, CPU, memory)?</li>
                         </ul>
-                        <button className="mt-6 bg-text-blue text-white px-6 py-3 rounded-lg"
-                            onClick={() => window.location.href='/synthesis'}
+                        <button
+                            className="mt-6 bg-text-blue text-white px-6 py-3 rounded-lg"
+                            onClick={() => window.location.href = '/synthesis'}
                         >
                             Start generating tables
                         </button>
                     </div>
-                    
+
                     <div className="hidden w-full md:w-1/2 md:flex justify-center md:justify-end">
                         <img
-                            src="src/assets/computer.jpg"
+                            src={computerImg}
                             className="w-64 sm:w-80 md:w-[90%] lg:w-[80%] max-w-[500px] rounded-lg object-cover"
                             alt="Computer"
                         />
@@ -239,17 +252,16 @@ const Home = () => {
                         <p className="text-gray-600 mt-2 text-sm md:text-base">Visualize the quality of the synthetic data with respect to different evaluation criteria. Some examples are provided below.</p>
                     </div>
                     <div className="w-full overflow-x-auto flex gap-6">
-                        {Object.entries(toolCharacteristics).slice(0,3).map(([toolName, data]) => (
-                                <div className="w-full flex flex-col items-center" key={toolName}>
-                                    <h3>{toolName}</h3>
-                                    <RadarChartComponent 
-                                        key={toolName}
-                                        toolName={toolName}
-                                        data={data} 
-                                    />
-                                </div>
-                            ))
-                        }
+                        {Object.entries(toolCharacteristics).slice(0, 3).map(([toolName, data]) => (
+                            <div className="w-full flex flex-col items-center" key={toolName}>
+                                <h3>{toolName}</h3>
+                                <RadarChartComponent
+                                    key={toolName}
+                                    toolName={toolName}
+                                    data={data}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -269,13 +281,15 @@ const Home = () => {
                             <li>Machine Learning Utility</li>
                             <li>Computational Performance</li>
                         </ul>
-                        <button className="my-6 bg-text-blue text-white px-6 py-3 rounded-lg"
-                            onClick={() => window.location.href='/dissertation'}>
+                        <button
+                            className="my-6 bg-text-blue text-white px-6 py-3 rounded-lg"
+                            onClick={() => window.location.href = '/dissertation'}
+                        >
                             Benchmarking Framework
                         </button>
                     </div>
                     <div className="w-full h-fit md:flex justify-end items-center md:w-1/2 mt-10 md:mt-0 self-center">
-                        <img src="src/assets/diagram.svg" alt="Decision Tree"></img>
+                        <img src={diagramImg} alt="Decision Tree" />
                     </div>
                 </div>
             </div>

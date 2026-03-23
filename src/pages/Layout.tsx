@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import logoImg from "../assets/logo.svg";
+import linkedinLogo from "../assets/linkedin-logo.svg";
+import githubLogo from "../assets/github-logo.svg";
+
 export const Layout = ({ children }: { children: React.ReactNode }) => {
     const [open, setOpen] = useState(false);
 
@@ -10,7 +14,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="w-full flex flex-row bg-white shadow-md py-3 text-lg px-5 lg:px-18 justify-between items-center">
                 {/* Logo + title */}
                 <Link to="/" className="flex flex-row items-center space-x-4">
-                    <img src="/src/assets/logo.svg" className="size-9" />
+                    <img src={logoImg} className="size-9" />
                     <h1 className="text-text-blue font-bold whitespace-nowrap">
                         TDS Benchmark
                     </h1>
@@ -26,8 +30,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     </ul>
 
                     <ul className="flex flex-row space-x-4">
-                        <li><a href="https://www.linkedin.com/in/maria-davila-restrepo/" target="_blank" rel="noopener noreferrer"><img className="size-7" src="/src/assets/linkedin-logo.svg"/></a></li>
-                        <li><a href="https://github.com/mafedavila" target="_blank" rel="noopener noreferrer"><img className="size-6" src="/src/assets/github-logo.svg"/></a></li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/maria-davila-restrepo/" target="_blank" rel="noopener noreferrer">
+                                <img className="size-7" src={linkedinLogo} />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/mafedavila" target="_blank" rel="noopener noreferrer">
+                                <img className="size-6" src={githubLogo} />
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -50,11 +62,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <a className="block hover:text-black">Synthesis</a>
                     <a className="block hover:text-black">Dissertation</a>
                     <a className="block hover:text-black">CV</a>
-
-                    <div className="flex flex-row space-x-4 pt-2">
-                        <a><img className="size-6" src="/src/assets/ig-logo.png"/></a>
-                        <a><img className="size-6" src="/src/assets/x-logo.png"/></a>
-                    </div>
                 </div>
             )}
 
@@ -73,8 +80,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     </p>
                 </div>
                 <div id="social-media" className="flex flex-row space-x-4">
-                    <a href="https://www.linkedin.com/in/maria-davila-restrepo/" target="_blank" rel="noopener noreferrer"><img className="size-7" src="/src/assets/linkedin-logo.svg"/></a>
-                    <a href="https://github.com/mafedavila" target="_blank" rel="noopener noreferrer"><img className="size-7" src="/src/assets/github-logo.svg"/></a>
+                    <a href="https://www.linkedin.com/in/maria-davila-restrepo/" target="_blank" rel="noopener noreferrer">
+                        <img className="size-7" src={linkedinLogo} />
+                    </a>
+                    <a href="https://github.com/mafedavila" target="_blank" rel="noopener noreferrer">
+                        <img className="size-7" src={githubLogo} />
+                    </a>
                 </div>
             </div>
         </div>
