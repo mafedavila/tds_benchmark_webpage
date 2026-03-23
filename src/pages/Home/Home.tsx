@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Layout } from '../Layout';
 import { Feature } from './components/Feature';
 import RadarChartComponent from './components/RadarChart';
@@ -164,6 +165,8 @@ const toolCharacteristics: Record<string, { label: string; value: number }[]> = 
 };
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <Layout>
             <div className="w-full h-full flex flex-col">
@@ -181,13 +184,13 @@ const Home = () => {
                         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-4">
                             <button
                                 className="bg-text-blue text-white px-6 py-3 rounded-lg w-full sm:w-auto"
-                                onClick={() => window.location.href = "/synthesis/researchers"}
+                                onClick={() => navigate("/synthesis/researchers")}
                             >
                                 For Researchers
                             </button>
                             <button
                                 className="bg-white text-text-blue font-semibold px-6 py-3 rounded-lg w-full sm:w-auto"
-                                onClick={() => window.location.href = "/synthesis/general-users"}
+                                onClick={() => navigate("/synthesis/general-users")}
                             >
                                 For Users
                             </button>
@@ -231,7 +234,7 @@ const Home = () => {
                         </ul>
                         <button
                             className="mt-6 bg-text-blue text-white px-6 py-3 rounded-lg"
-                            onClick={() => window.location.href = '/synthesis'}
+                            onClick={() => navigate('/synthesis')}
                         >
                             Start generating tables
                         </button>
@@ -283,7 +286,7 @@ const Home = () => {
                         </ul>
                         <button
                             className="my-6 bg-text-blue text-white px-6 py-3 rounded-lg"
-                            onClick={() => window.location.href = '/dissertation'}
+                            onClick={() => navigate('/dissertation')}
                         >
                             Benchmarking Framework
                         </button>
