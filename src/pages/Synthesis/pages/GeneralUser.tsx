@@ -88,7 +88,7 @@ export default function DecisionGuide() {
                         </ul>
 
                         <button onClick={restart} className="mt-4 px-4 py-2 bg-gray-700 text-white rounded-xl hover:bg-gray-800">
-                            Hacer otra evaluación
+                            Restart
                         </button>
                     </div>
                 )}
