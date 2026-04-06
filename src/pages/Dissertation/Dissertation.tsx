@@ -13,7 +13,7 @@ const Dissertation = () => {
                 </p>
 
                 <a
-                    href={`${import.meta.env.BASE_URL}2025_Dissertation_Davila.pdf`}
+                    href={`${import.meta.env.BASE_URL}2026_Dissertation_Davila.pdf`}
                     download
                     className="w-full text-center mt-6 inline-block px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                 >
