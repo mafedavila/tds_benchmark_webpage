@@ -138,7 +138,7 @@ const Home = () => {
                     <Feature
                         img={feature1Img}
                         title="Effortless Table Generation"
-                        description="Generate high-quality synthetic tables from your original dataset — no need to dive into complex TDS models or tools."
+                        description="Generate high-quality synthetic tables from your original dataset. No need to dive into complex TDS models or tools."
                     />
                     <Feature
                         img={feature2Img}
@@ -210,7 +210,7 @@ const Home = () => {
                             Benchmark your TDS Tool
                         </h3>
                         <p className="text-gray-600 mt-4 text-sm md:text-base">
-                            Use our framework to evaluate your TDS tool against the a comprehensive taxonomy — including sampling, Bayesian networks, GANs, diffusion models, and Transformer-based models.
+                            Use our framework to evaluate your TDS tool against the a comprehensive taxonomy, including sampling, Bayesian networks, GANs, diffusion models, and Transformer-based models.
                         </p>
                         <ul className="list-disc list-inside mt-4 space-y-2 text-gray-600 text-sm md:text-base">
                             <li>Handling dataset imbalance</li>
