@@ -11,155 +11,155 @@ import diagramImg from '../../assets/diagram.svg';
 
 const toolCharacteristics: Record<string, { label: string; value: number }[]> = {
     "Sampling": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 8 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 8 },
-        { label: "ML Utility", value: 6 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 8 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 8 },
+        { label: "Utility", value: 6 },
         { label: "Privacy", value: 4 }
     ],
     "Bayesian Network": [
-        { label: "Missing Values", value: 6 },
-        { label: "Data Augmentation", value: 6 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 8 },
-        { label: "ML Utility", value: 5 },
+        { label: "Robustness", value: 6 },
+        { label: "Marginal Distributions", value: 6 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 8 },
+        { label: "Utility", value: 5 },
         { label: "Privacy", value: 6 }
     ],
     "CTAB-GAN": [
-        { label: "Missing Values", value: 5 },
-        { label: "Data Augmentation", value: 6 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 7 },
-        { label: "ML Utility", value: 8 },
+        { label: "Robustness", value: 5 },
+        { label: "Marginal Distributions", value: 6 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 7 },
+        { label: "Utility", value: 8 },
         { label: "Privacy", value: 7 }
     ],
     "CTAB-GAN+": [
-        { label: "Missing Values", value: 5 },
-        { label: "Data Augmentation", value: 6 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 7 },
-        { label: "ML Utility", value: 8 },
+        { label: "Robustness", value: 5 },
+        { label: "Marginal Distributions", value: 6 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 7 },
+        { label: "Utility", value: 8 },
         { label: "Privacy", value: 7 }
     ],
     "VAE": [
-        { label: "Missing Values", value: 5 },
-        { label: "Data Augmentation", value: 6 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 7 },
-        { label: "ML Utility", value: 6 },
+        { label: "Robustness", value: 5 },
+        { label: "Marginal Distributions", value: 6 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 7 },
+        { label: "Utility", value: 6 },
         { label: "Privacy", value: 5 }
     ],
     "TabDDPM": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 8 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 8 },
-        { label: "ML Utility", value: 7 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 8 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 8 },
+        { label: "Utility", value: 7 },
         { label: "Privacy", value: 9 }
     ],
     "GAP": [
-        { label: "Missing Values", value: 3 },
-        { label: "Data Augmentation", value: 3 },
-        { label: "Dataset Balancing", value: 4 },
-        { label: "Performance", value: 4 },
-        { label: "ML Utility", value: 3 },
+        { label: "Robustness", value: 3 },
+        { label: "Marginal Distributions", value: 3 },
+        { label: "Dependency Structure", value: 4 },
+        { label: "Comp. Performance", value: 4 },
+        { label: "Utility", value: 3 },
         { label: "Privacy", value: 2 }
     ],
     "AutoDiff": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 8 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 8 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "TabSyn": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 7 },
-        { label: "Performance", value: 8 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 7 },
+        { label: "Comp. Performance", value: 8 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "REaLTabFormer": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "GReaT": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "TabuLa": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "C3TGAN": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "Kamino": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "PrivLava": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "TimeVAE": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "TimeGAN": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "TSGM": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ],
     "DoppelGANger": [
-        { label: "Missing Values", value: 8 },
-        { label: "Data Augmentation", value: 9 },
-        { label: "Dataset Balancing", value: 8 },
-        { label: "Performance", value: 6 },
-        { label: "ML Utility", value: 9 },
+        { label: "Robustness", value: 8 },
+        { label: "Marginal Distributions", value: 9 },
+        { label: "Dependency Structure", value: 8 },
+        { label: "Comp. Performance", value: 6 },
+        { label: "Utility", value: 9 },
         { label: "Privacy", value: 7 }
     ]
 };
@@ -207,7 +207,7 @@ const Home = () => {
                     <Feature
                         img={feature2Img}
                         title="Use-Case-Specific Evaluation"
-                        description="Assess how useful your synthetic data is for your specific use case through clear, visual results and performance insights."
+                        description="Assess how useful your synthetic data is for your specific use case through clear, visual results and Comp. Performance insights."
                     />
                     <Feature
                         img={feature3Img}
@@ -279,10 +279,10 @@ const Home = () => {
                         <ul className="list-disc list-inside mt-4 space-y-2 text-gray-600 text-sm md:text-base">
                             <li>Handling dataset imbalance</li>
                             <li>Dataset augmentation</li>
-                            <li>Handling missing values</li>
+                            <li>Handling Robustness</li>
                             <li>Privacy</li>
                             <li>Machine Learning Utility</li>
-                            <li>Computational Performance</li>
+                            <li>Computational Comp. Performance</li>
                         </ul>
                         <button
                             className="my-6 bg-text-blue text-white px-6 py-3 rounded-lg"
