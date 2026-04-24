@@ -102,6 +102,8 @@ const toolCharacteristics: Record<string, { label: string; value: number }[]> = 
 
 const Home = () => {
     const navigate = useNavigate();
+    const chartEntries = Object.entries(toolCharacteristics);
+    const infiniteChartEntries = [...chartEntries, ...chartEntries];
 
     return (
         <Layout>
@@ -118,12 +120,14 @@ const Home = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-4">
-                            <button
+                            <a
                                 className="bg-text-blue text-white px-6 py-3 rounded-lg w-full sm:w-auto"
-                                onClick={() => navigate("/synthesis/researchers")}
+                                href="https://github.com/mafedavila/TDSbenchmark"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 For Researchers
-                            </button>
+                            </a>
                             <button
                                 className="bg-white text-text-blue font-semibold px-6 py-3 rounded-lg w-full sm:w-auto"
                                 onClick={() => navigate("/synthesis/general-users")}
@@ -190,17 +194,18 @@ const Home = () => {
                         <h3 id="title-feature" className="text-2xl md:text-3xl font-semibold">Use-Case-Specific Evaluation</h3>
                         <p className="text-gray-600 mt-2 text-sm md:text-base">Visualize the quality of the synthetic data with respect to different evaluation criteria. Some examples are provided below.</p>
                     </div>
-                    <div className="w-full overflow-x-auto flex gap-6">
-                        {Object.entries(toolCharacteristics).slice(0, 3).map(([toolName, data]) => (
-                            <div className="w-full flex flex-col items-center" key={toolName}>
-                                <h3>{toolName}</h3>
-                                <RadarChartComponent
-                                    key={toolName}
-                                    toolName={toolName}
-                                    data={data}
-                                />
-                            </div>
-                        ))}
+                    <div className="scroll-wrapper">
+                        <div className="scroll-content-home gap-12">
+                            {infiniteChartEntries.map(([toolName, data], index) => (
+                                <div className="w-[380px] shrink-0 flex flex-col items-center" key={`${toolName}-${index}`}>
+                                    <h3>{toolName}</h3>
+                                    <RadarChartComponent
+                                        toolName={toolName}
+                                        data={data}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

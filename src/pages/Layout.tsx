@@ -25,6 +25,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <ul className="flex flex-row space-x-6">
                         <li><Link to="/synthesis" className="hover:text-black cursor-pointer">Synthesis</Link></li>
                         <li><Link to="/dissertation" className="hover:text-black cursor-pointer">Dissertation</Link></li>
+                        <li><Link to="/documentation" className="hover:text-black cursor-pointer">Documentation</Link></li>
                         <li><Link to="/publications" className="hover:text-black cursor-pointer">Publications</Link></li>
                         <li><Link to="/cv" className="hover:text-black cursor-pointer">CV</Link></li>
                     </ul>
@@ -57,11 +58,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             {/* Mobile dropdown */}
             {open && (
                 <div className="md:hidden bg-white shadow-md px-5 py-3 space-y-4 text-gray-600 font-medium">
-                    <a className="block hover:text-black">Publications</a>
-                    <a className="block hover:text-black">TDS Model & Tools Insights</a>
-                    <a className="block hover:text-black">Synthesis</a>
-                    <a className="block hover:text-black">Dissertation</a>
-                    <a className="block hover:text-black">CV</a>
+                    <Link to="/publications" className="block hover:text-black">Publications</Link>
+                    <Link to="/documentation" className="block hover:text-black">Documentation</Link>
+                    <Link to="/synthesis" className="block hover:text-black">Synthesis</Link>
+                    <Link to="/dissertation" className="block hover:text-black">Dissertation</Link>
+                    <Link to="/cv" className="block hover:text-black">CV</Link>
                 </div>
             )}
 

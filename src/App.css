@@ -13,9 +13,22 @@
 
 .scroll-content {
     display: flex;
-    gap: 1.5rem;
+    gap: 3rem;
     width: max-content;
-    animation: scrollLoop 20s linear infinite;
+    animation: scrollLoop 32s linear infinite;
+    will-change: transform;
+}
+
+.scroll-content-home{
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    animation: scrollLoop 50s linear infinite;
+    will-change: transform;
+}
+
+.scroll-wrapper:hover .scroll-content, .scroll-wrapper:hover .scroll-content-home {
+    animation-play-state: paused;
 }
 
 @keyframes scrollLoop {
@@ -24,6 +37,13 @@
     }
     100% {
         transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-content, .scroll-content-home {
+        animation: none;
+        transform: translateX(0);
     }
 }
 
