@@ -5,7 +5,11 @@ import {
     computeBPurpose,
     computeRDataset,
     computeRHardware,
+    computeWDataset,
+    computeWPurpose,
+    computeWHardware,
 } from "../calculations";
+
 import { useQuestionnaire } from "../store";
 import type { QuestionnaireState } from "../types";
 import DatasetSection from "./sections/DatasetSection";
@@ -43,6 +47,7 @@ const PURPOSE_LEGEND = [
 ];
 
 const HARDWARE_LEGEND = ["CPU", "Memory", "GPU", "Runtime"];
+const TOOL_LEGEND = [...TOOLS];
 
 const HardwareStep = () => (
     <div className="space-y-6">
@@ -80,7 +85,11 @@ const ResultsStep = () => {
 
             <VectorDisplay
                 R_dataset={vectors.R_dataset}
+                w_dataset={vectors.w_dataset}
                 B_purpose={vectors.B_purpose}
+                w_purpose={vectors.w_purpose}
+                w_hardware={vectors.w_hardware}
+                Ft={vectors.Ft}
                 R_hardware={vectors.R_hardware}
                 showSt
                 St={vectors.St}
@@ -96,13 +105,22 @@ const STEPS: Step[] = [
         title: "About your dataset",
         subtitle: "Tell us which data structures your synthetic dataset needs.",
         component: DatasetSection,
-        getVectors: (state) => [
-            {
-                label: "R_dataset",
-                vector: computeRDataset(state.selectedColumnTypes, state.tableCount),
-                legend: DATASET_LEGEND,
-            },
-        ],
+        getVectors: (state) => {
+            const R_dataset = computeRDataset(state.selectedColumnTypes, state.tableCount);
+            const w_dataset = computeWDataset(R_dataset);
+            return [
+                {
+                    label: "R_dataset",
+                    vector: R_dataset,
+                    legend: DATASET_LEGEND,
+                },
+                {
+                    label: "w_dataset",
+                    vector: w_dataset,
+                    legend: TOOL_LEGEND,
+                },
+            ];
+        },
         isComplete: (state) => state.selectedColumnTypes.length > 0,
     },
     {
@@ -110,19 +128,29 @@ const STEPS: Step[] = [
         title: "Application purpose",
         subtitle: "Choose one objective or distribute priorities across multiple goals.",
         component: PurposeSection,
-        getVectors: (state) => [
-            {
-                label: "B_purpose",
-                vector: computeBPurpose(state.purposeMode, state.singlePurpose, state.coinBudget),
-                legend: PURPOSE_LEGEND,
-            },
-        ],
+        getVectors: (state) => {
+            const B_purpose = computeBPurpose(
+                state.purposeMode,
+                state.singlePurpose,
+                state.coinBudget,
+            );
+            const w_purpose = computeWPurpose(B_purpose);
+            return [
+                {
+                    label: "B_purpose",
+                    vector: B_purpose,
+                    legend: PURPOSE_LEGEND,
+                },
+                {
+                    label: "w_purpose",
+                    vector: w_purpose,
+                    legend: TOOL_LEGEND,
+                },
+            ];
+        },
         isComplete: (state) => {
-            if (state.purposeMode === "single") {
-                return state.singlePurpose !== null;
-            }
-
-            return Object.values(state.coinBudget).reduce((sum, value) => sum + value, 0) === 10;
+            if (state.purposeMode === "single") return state.singlePurpose !== null;
+            return Object.values(state.coinBudget).reduce((sum, v) => sum + v, 0) === 10;
         },
     },
     {
@@ -130,18 +158,27 @@ const STEPS: Step[] = [
         title: "Your hardware",
         subtitle: "Compare your hardware and runtime needs against the benchmark reference.",
         component: HardwareStep,
-        getVectors: (state) => [
-            {
-                label: "R_hardware",
-                vector: computeRHardware(
-                    state.cpuLevel,
-                    state.memoryLevel,
-                    state.gpuLevel,
-                    state.runtimeLevel,
-                ),
-                legend: HARDWARE_LEGEND,
-            },
-        ],
+        getVectors: (state) => {
+            const R_hardware = computeRHardware(
+                state.cpuLevel,
+                state.memoryLevel,
+                state.gpuLevel,
+                state.runtimeLevel,
+            );
+            const w_hardware = computeWHardware(R_hardware);
+            return [
+                {
+                    label: "R_hardware",
+                    vector: R_hardware,
+                    legend: HARDWARE_LEGEND,
+                },
+                {
+                    label: "w_hardware",
+                    vector: w_hardware,
+                    legend: TOOL_LEGEND,
+                },
+            ];
+        },
         isComplete: (state) =>
             Boolean(state.cpuLevel && state.memoryLevel && state.gpuLevel && state.runtimeLevel),
     },
@@ -152,16 +189,18 @@ const STEPS: Step[] = [
         component: ResultsStep,
         getVectors: (state) => {
             const vectors = computeAllVectors(state);
-
             return [
-                { label: "R_dataset", vector: vectors.R_dataset, legend: DATASET_LEGEND },
-                { label: "B_purpose", vector: vectors.B_purpose, legend: PURPOSE_LEGEND },
+                { label: "w_dataset", vector: vectors.w_dataset, legend: DATASET_LEGEND },
+                { label: "w_purpose", vector: vectors.w_purpose, legend: PURPOSE_LEGEND },
                 { label: "R_hardware", vector: vectors.R_hardware, legend: HARDWARE_LEGEND },
-                { label: "St", vector: vectors.St, legend: [...TOOLS] },
+                { label: "B_purpose", vector: vectors.B_purpose, legend: PURPOSE_LEGEND },
+                { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND },
+                { label: "Ft", vector: vectors.Ft, legend: TOOL_LEGEND },
+                { label: "St", vector: vectors.St, legend: TOOL_LEGEND },
             ];
         },
         isComplete: () => true,
-    },
+    }
 ];
 
 const getPillClassName = (value: number) => {

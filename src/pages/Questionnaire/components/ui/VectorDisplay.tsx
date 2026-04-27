@@ -2,8 +2,12 @@ import { memo } from "react";
 
 interface VectorDisplayProps {
     R_dataset: number[];
+    w_dataset: number[];
     B_purpose: number[];
+    w_purpose: number[];
     R_hardware: number[];
+    w_hardware: number[];
+    Ft: number[];
     showSt?: boolean;
     St?: number[];
     tools?: string[];
@@ -179,6 +183,10 @@ function VectorDisplayComponent({
     R_dataset,
     B_purpose,
     R_hardware,
+    w_dataset,
+    w_purpose,
+    w_hardware,
+    Ft,
     showSt = false,
     St = [],
     tools = DEFAULT_TOOLS,
@@ -204,6 +212,34 @@ function VectorDisplayComponent({
             values: R_hardware,
             labels: HARDWARE_LABELS,
             maxValue: 1.5,
+        },
+        {
+            name: "w_dataset",
+            formulaLabel: `w_dataset [1×${w_dataset.length}]`,
+            values: w_dataset,
+            labels: ["x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11"],
+            maxValue: 1,
+        },
+        {
+            name: "w_purpose",
+            formulaLabel: `w_purpose [1×${w_purpose.length}]`,
+            values: w_purpose,
+            labels: ["x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11"],
+            maxValue: 1,
+        },
+        {
+            name: "w_hardware",
+            formulaLabel: `w_hardware [1×${w_hardware.length}]`,
+            values: w_hardware,
+            labels: ["x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11"],
+            maxValue: 1,
+        },
+        {
+            name: "Ft",
+            formulaLabel: `Ft [1×${Ft.length}]`,
+            values: Ft,
+            labels: ["x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11"],
+            maxValue: 1,
         },
     ].filter((section) => section.values.length > 0);
 

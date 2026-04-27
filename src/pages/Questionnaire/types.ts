@@ -38,8 +38,12 @@ export interface QuestionnaireState {
 
 export interface VectorResults {
     R_dataset: number[];
+    w_dataset: number[];
     B_purpose: number[];
+    w_purpose: number[];
     R_hardware: number[];
+    w_hardware: number[];
+    Ft: number[];
     St: number[];
     topTools: { name: string; score: number }[];
 }

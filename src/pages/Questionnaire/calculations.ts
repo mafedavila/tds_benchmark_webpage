@@ -33,15 +33,9 @@ export const PURPOSES = [
 ] as const;
 
 // Rows: Categorical, Numerical, Temporal, Text, Mixed Cat/Num, 2 Tables, N Tables.
-
-// Columns:
-
-// AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT,
-
-// REaLTabFormer, SMOTE, TVAE, TabDDPM, TabSyn, TabuLaMiddle
+// Columns:AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REaLTabFormer, SMOTE, TVAE, TabDDPM, TabSyn, TabuLaMiddle
 
 export const M_assess: number[][] = [
-
     // Categorical
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     // Numerical
@@ -223,8 +217,12 @@ export function computeAllVectors(state: QuestionnaireState): VectorResults {
 
     return {
         R_dataset,
+        w_dataset,
         B_purpose,
+        w_purpose,
         R_hardware,
+        w_hardware,
+        Ft,
         St,
         topTools,
     };
