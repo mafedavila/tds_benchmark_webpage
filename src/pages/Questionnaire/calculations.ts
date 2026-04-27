@@ -33,15 +33,30 @@ export const PURPOSES = [
 ] as const;
 
 // Rows: Categorical, Numerical, Temporal, Text, Mixed Cat/Num, 2 Tables, N Tables.
-// Columns Metrics: SMOTE, CTGAN, CTABGAN+, GANBLR++, TVAE, TabDDPM, GReaT, REaLTabFormer, TabuLa, AutoDiff, TabSyn
+
+// Columns:
+
+// AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT,
+
+// REaLTabFormer, SMOTE, TVAE, TabDDPM, TabSyn, TabuLaMiddle
+
 export const M_assess: number[][] = [
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+
+    // Categorical
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
-    [0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    // Numerical
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    // Temporal
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    // Text
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1],
+    // Mixed Cat/Num
+    [1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1],
+    // 2 Tables
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    // N Tables
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
 ];
 
 // Rows: Data Augmentation, Dataset Balancing, Missing Value Imputation, Customized Generation, Privacy Preservation.
