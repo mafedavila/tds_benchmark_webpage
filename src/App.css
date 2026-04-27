@@ -3,7 +3,7 @@
 
 
 @theme {
-    --color-text-blue: #00407C;
+    --color-text-blue: #3A7F8F;
 }
 
 .scroll-wrapper {
@@ -61,7 +61,7 @@ p{
 }
 
 #title-feature{
-    color: #00407C;
+    color: #3A7F8F;
     font-size: 25px;
     font-weight: 600;
 }

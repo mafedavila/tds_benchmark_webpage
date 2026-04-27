@@ -108,7 +108,7 @@ const Home = () => {
     return (
         <Layout>
             <div className="w-full h-full flex flex-col">
-                <div className="w-full bg-linear-to-r from-[#048EEC] to-[#18C8FE] flex flex-col md:flex-row justify-between items-center md:items-start">
+                <div className="w-full bg-linear-to-r from-[#3A7F8F] to-[#4CA2B5] flex flex-col md:flex-row justify-between items-center md:items-start">
                     <div className="w-full md:w-[60%] flex flex-col text-white px-5 md:pl-18 py-12 md:py-20 space-y-6">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
                             Your Guide to Artificial Tables
@@ -121,7 +121,7 @@ const Home = () => {
 
                         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-4">
                             <a
-                                className="bg-text-blue text-white px-6 py-3 rounded-lg w-full sm:w-auto"
+                                className="bg-text-blue text-white px-6 py-3 rounded-lg w-full sm:w-auto transition border-white border"
                                 href="https://github.com/mafedavila/TDSbenchmark"
                                 target="_blank"
                                 rel="noopener noreferrer"

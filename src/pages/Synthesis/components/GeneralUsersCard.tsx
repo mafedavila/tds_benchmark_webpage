@@ -33,7 +33,7 @@ export const GeneralUsersCard = () => {
             </ul>
 
             <button
-                className="mt-6 w-full bg-text-blue text-white py-3 rounded-xl hover:bg-blue-800 transition"
+                className="mt-6 w-full bg-text-blue text-white py-3 rounded-xl hover:bg-[#3A7F8F] transition"
                 onClick={() => navigate("/synthesis/general-users")}
             >
                 Select Option

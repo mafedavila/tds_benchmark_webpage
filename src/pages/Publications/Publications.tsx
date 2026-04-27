@@ -110,7 +110,7 @@ const Publications = () => {
                             className="flex-1 bg-transparent outline-none text-gray-600 placeholder-gray-500 px-4 text-lg"
                         />
 
-                        <button className="hidden md:flex bg-[#053B7C] text-white px-8 py-3 rounded-2xl text-lg font-semibold">
+                        <button className="hidden md:flex bg-[#3A7F8F] text-white px-8 py-3 rounded-2xl text-lg font-semibold">
                             Search
                         </button>
                     </div>
