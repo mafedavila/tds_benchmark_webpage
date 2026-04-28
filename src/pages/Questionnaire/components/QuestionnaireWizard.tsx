@@ -10,6 +10,10 @@ import {
     computeWHardware,
 } from "../calculations";
 
+import { M_assess, M_eval, M_bench, M_comp } from "../matrixes";
+
+import { DATASET_LEGEND, PURPOSE_LEGEND, HARDWARE_LEGEND, TOOL_LEGEND, M_ASSESS_ROW_LABELS, M_EVAL_ROW_LABELS, M_COMP_ROW_LABELS, M_BENCH_ROW_LABELS } from "./LEGENDS";
+
 import { useQuestionnaire } from "../store";
 import type { QuestionnaireState } from "../types";
 import DatasetSection from "./sections/DatasetSection";
@@ -18,36 +22,27 @@ import PurposeSection from "./sections/PurposeSection";
 import RuntimeSection from "./sections/RuntimeSection";
 import VectorDisplay from "./ui/VectorDisplay";
 import { Layout } from "../../Layout";
+import MatrixDisplay from "./ui/Matrix";
 
 interface Step {
     id: "dataset" | "purpose" | "hardware" | "results";
     title: string;
     subtitle: string;
     component: FC;
-    getVectors: (state: QuestionnaireState) => { label: string; vector: number[]; legend: string[] }[];
+    getVectors: (state: QuestionnaireState) => {
+        label: string;
+        vector: number[];
+        legend: string[];
+        matrixInfo?: {
+            label?: string;
+            rowLabels: string[];
+            colLabels: string[];
+            matrix: number[][];
+        };
+    }[];
     isComplete: (state: QuestionnaireState) => boolean;
 }
 
-const DATASET_LEGEND = [
-    "Categorical",
-    "Numerical",
-    "Temporal",
-    "Text",
-    "Mixed Cat/Num",
-    "2 Tables",
-    "N Tables",
-];
-
-const PURPOSE_LEGEND = [
-    "Data Augmentation",
-    "Dataset Balancing",
-    "Missing Value Imputation",
-    "Customized Generation",
-    "Privacy Preservation",
-];
-
-const HARDWARE_LEGEND = ["CPU", "Memory", "GPU", "Runtime"];
-const TOOL_LEGEND = [...TOOLS];
 
 const HardwareStep = () => (
     <div className="space-y-6">
@@ -84,13 +79,9 @@ const ResultsStep = () => {
             </div>
 
             <VectorDisplay
-                R_dataset={vectors.R_dataset}
                 w_dataset={vectors.w_dataset}
-                B_purpose={vectors.B_purpose}
                 w_purpose={vectors.w_purpose}
                 w_hardware={vectors.w_hardware}
-                Ft={vectors.Ft}
-                R_hardware={vectors.R_hardware}
                 showSt
                 St={vectors.St}
                 tools={[...TOOLS]}
@@ -118,6 +109,12 @@ const STEPS: Step[] = [
                     label: "w_dataset",
                     vector: w_dataset,
                     legend: TOOL_LEGEND,
+                    matrixInfo: {
+                        label: "M_assess",
+                        rowLabels: M_ASSESS_ROW_LABELS,
+                        colLabels: [...TOOLS],
+                        matrix: M_assess,
+                    },
                 },
             ];
         },
@@ -140,11 +137,23 @@ const STEPS: Step[] = [
                     label: "B_purpose",
                     vector: B_purpose,
                     legend: PURPOSE_LEGEND,
+                    matrixInfo: {
+                        label: "M_eval",
+                        rowLabels: M_EVAL_ROW_LABELS,
+                        colLabels: ["Marginal Dist.", "Dependency", "Utility", "Robustness", "Privacy"],
+                        matrix: M_eval,
+                    },
                 },
                 {
                     label: "w_purpose",
                     vector: w_purpose,
                     legend: TOOL_LEGEND,
+                    matrixInfo: {
+                        label: "M_bench",
+                        rowLabels: M_BENCH_ROW_LABELS,
+                        colLabels: [...TOOLS],
+                        matrix: M_bench,
+                    },
                 },
             ];
         },
@@ -176,6 +185,12 @@ const STEPS: Step[] = [
                     label: "w_hardware",
                     vector: w_hardware,
                     legend: TOOL_LEGEND,
+                    matrixInfo: {
+                        label: "M_comp",
+                        rowLabels: M_COMP_ROW_LABELS,
+                        colLabels: [...TOOLS],
+                        matrix: M_comp,
+                    },
                 },
             ];
         },
@@ -192,10 +207,7 @@ const STEPS: Step[] = [
             return [
                 { label: "w_dataset", vector: vectors.w_dataset, legend: DATASET_LEGEND },
                 { label: "w_purpose", vector: vectors.w_purpose, legend: PURPOSE_LEGEND },
-                { label: "R_hardware", vector: vectors.R_hardware, legend: HARDWARE_LEGEND },
-                { label: "B_purpose", vector: vectors.B_purpose, legend: PURPOSE_LEGEND },
                 { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND },
-                { label: "Ft", vector: vectors.Ft, legend: TOOL_LEGEND },
                 { label: "St", vector: vectors.St, legend: TOOL_LEGEND },
             ];
         },
@@ -236,31 +248,57 @@ const formatValue = (value: number) => {
 };
 
 function VectorStrip({ vectors }: { vectors: ReturnType<Step["getVectors"]> }) {
+    const [open, setOpen] = useState(false);
+
+
     return (
         <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-            <p className="text-sm font-semibold text-gray-900">Your vector so far</p>
-            <div className="mt-3 space-y-3">
+            <div className="flex justify-between items-center">
+                <button
+                    type="button"
+                    onClick={() => setOpen((prev) => !prev)}
+                    className="flex items-center gap-1.5 text-xs font-medium text-gray-400 transition hover:text-gray-600"
+                >
+                    <svg className={`h-3 w-3 transition-transform duration-200 ${open ? "rotate-90" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                    {open ? "Hide" : "More information"}
+                </button>
+            </div>
+            {open && (
+                <div className="mt-3 space-y-4">
+                <p className="text-sm font-semibold text-gray-900">Your vectors so far</p>
                 {vectors.map((item) => (
-                    <div key={item.label} className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                        <span className="w-28 shrink-0 text-xs font-semibold text-gray-500">
-                            {item.label}
-                        </span>
-                        <div className="flex flex-wrap gap-1.5">
-                            {item.vector.map((value, index) => (
-                                <span
-                                    key={`${item.label}-${index}`}
-                                    title={item.legend[index] ?? `Position ${index}`}
-                                    className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-200 ${getPillClassName(
-                                        value,
-                                    )}`}
-                                >
-                                    {formatValue(value)}
-                                </span>
-                            ))}
+                    <div key={item.label}>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                            <span className="w-28 shrink-0 text-xs font-semibold text-gray-500">
+                                {item.label}
+                            </span>
+                            <div className="flex flex-wrap gap-1.5">
+                                {item.vector.map((value, index) => (
+                                    <span
+                                        key={`${item.label}-${index}`}
+                                        title={item.legend[index] ?? `Position ${index}`}
+                                        className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-200 ${getPillClassName(value)}`}
+                                    >
+                                        {formatValue(value)}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
+
+                        {item.matrixInfo && (
+                            <MatrixDisplay
+                                label={item.matrixInfo.label ?? item.label}
+                                rowLabels={item.matrixInfo.rowLabels}
+                                colLabels={item.matrixInfo.colLabels}
+                                matrix={item.matrixInfo.matrix}
+                            />
+                        )}
                     </div>
                 ))}
-            </div>
+                </div>
+            )}
         </div>
     );
 }

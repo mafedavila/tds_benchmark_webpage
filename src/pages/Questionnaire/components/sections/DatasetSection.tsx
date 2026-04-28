@@ -1,5 +1,8 @@
 import { useQuestionnaire } from "../../store";
 import { ColumnType, type TableCount } from "../../types";
+import { useMemo } from "react";
+import { computeRDataset, computeWDataset } from "../../calculations";
+import ToolRanking from "../ui/ToolRanking";
 
 const COLUMN_TYPE_OPTIONS = [
     { value: ColumnType.Categorical, label: "Categorical" },
@@ -11,6 +14,10 @@ const COLUMN_TYPE_OPTIONS = [
 
 export default function DatasetSection() {
     const { state, dispatch } = useQuestionnaire();
+    const wDataset = useMemo(() => {
+        const R = computeRDataset(state.selectedColumnTypes, state.tableCount);
+        return computeWDataset(R);
+    }, [state.selectedColumnTypes, state.tableCount]);
 
     const toggleColumnType = (columnType: ColumnType) => {
         const selectedColumnTypes = state.selectedColumnTypes.includes(columnType)
@@ -104,6 +111,8 @@ export default function DatasetSection() {
                     </div>
                 </div>
             )}
+
+            <ToolRanking wDataset={wDataset} />
         </section>
     );
 }
