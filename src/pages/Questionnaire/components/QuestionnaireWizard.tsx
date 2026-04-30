@@ -33,6 +33,7 @@ interface Step {
         label: string;
         vector: number[];
         legend: string[];
+        colorMode?: "default" | "dataset-compatibility" | "ranked";
         matrixInfo?: {
             label?: string;
             rowLabels: string[];
@@ -109,6 +110,7 @@ const STEPS: Step[] = [
                     label: "w_dataset",
                     vector: w_dataset,
                     legend: TOOL_LEGEND,
+                    colorMode: "dataset-compatibility",
                     matrixInfo: {
                         label: "M_assess",
                         rowLabels: M_ASSESS_ROW_LABELS,
@@ -118,7 +120,7 @@ const STEPS: Step[] = [
                 },
             ];
         },
-        isComplete: (state) => state.selectedColumnTypes.length > 0,
+        isComplete: (state) => state.selectedColumnTypes.length > 0 && state.tableCount !== "more",
     },
     {
         id: "purpose",
@@ -148,6 +150,7 @@ const STEPS: Step[] = [
                     label: "w_purpose",
                     vector: w_purpose,
                     legend: TOOL_LEGEND,
+                    colorMode: "ranked",
                     matrixInfo: {
                         label: "M_bench",
                         rowLabels: M_BENCH_ROW_LABELS,
@@ -185,6 +188,7 @@ const STEPS: Step[] = [
                     label: "w_hardware",
                     vector: w_hardware,
                     legend: TOOL_LEGEND,
+                    colorMode: "ranked",
                     matrixInfo: {
                         label: "M_comp",
                         rowLabels: M_COMP_ROW_LABELS,
@@ -205,9 +209,9 @@ const STEPS: Step[] = [
         getVectors: (state) => {
             const vectors = computeAllVectors(state);
             return [
-                { label: "w_dataset", vector: vectors.w_dataset, legend: DATASET_LEGEND },
-                { label: "w_purpose", vector: vectors.w_purpose, legend: PURPOSE_LEGEND },
-                { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND },
+                { label: "w_dataset", vector: vectors.w_dataset, legend: TOOL_LEGEND, colorMode: "dataset-compatibility" },
+                { label: "w_purpose", vector: vectors.w_purpose, legend: TOOL_LEGEND, colorMode: "ranked" },
+                { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND, colorMode: "ranked" },
                 { label: "St", vector: vectors.St, legend: TOOL_LEGEND },
             ];
         },
@@ -215,28 +219,62 @@ const STEPS: Step[] = [
     }
 ];
 
-const getPillClassName = (value: number) => {
-    if (value === 0) {
-        return "border-gray-200 bg-gray-100 text-gray-500";
+const isBinaryValue = (value: number) => value === 0 || value === 1;
+
+const getValueClasses = (value: number, maxValue: number) => {
+    if (isBinaryValue(value)) {
+        return value === 1
+            ? "border-amber-400 bg-amber-400 text-amber-950"
+            : "border-gray-200 bg-gray-100 text-gray-500";
     }
 
-    if (value >= 1) {
-        return "border-amber-400 bg-amber-500 text-amber-950";
+    const normalizedValue = maxValue > 0 ? Math.min(Math.max(value / maxValue, 0), 1) : 0;
+
+    if (normalizedValue >= 0.8) return "border-amber-400 bg-amber-400 text-amber-950";
+    if (normalizedValue >= 0.6) return "border-amber-300 bg-amber-300 text-amber-950";
+    if (normalizedValue >= 0.4) return "border-amber-200 bg-amber-200 text-amber-900";
+    if (normalizedValue > 0) return "border-amber-100 bg-amber-100 text-amber-800";
+
+    return "border-gray-200 bg-gray-100 text-gray-500";
+};
+
+const getDatasetCompatibilityClasses = (value: number, maxValue: number) => {
+    if (value === maxValue) {
+        return "border-emerald-400 bg-emerald-400 text-emerald-950";
     }
 
-    if (value >= 0.75) {
-        return "border-amber-300 bg-amber-500/80 text-amber-950";
+    return "border-red-300 bg-red-200 text-red-800";
+};
+
+const getRankedColorClasses = (rank: number, total: number) => {
+    if (rank === 0) return "border-emerald-500 bg-emerald-500 text-white";
+    if (rank === total - 1) return "border-red-500 bg-red-500 text-white";
+
+    return "border-yellow-400 bg-yellow-400 text-yellow-950";
+};
+
+const getRankedIndices = (values: number[]) =>
+    [...values.map((value, index) => ({ value, index }))]
+        .sort((left, right) => right.value - left.value)
+        .map((item, rank) => ({ index: item.index, rank }))
+        .sort((left, right) => left.index - right.index)
+        .map((item) => item.rank);
+
+const getPillClassName = (
+    value: number,
+    values: number[],
+    index: number,
+    colorMode: "default" | "dataset-compatibility" | "ranked" = "default",
+) => {
+    if (colorMode === "dataset-compatibility") {
+        return getDatasetCompatibilityClasses(value, Math.max(...values));
     }
 
-    if (value >= 0.5) {
-        return "border-amber-300 bg-amber-500/60 text-amber-950";
+    if (colorMode === "ranked") {
+        return getRankedColorClasses(getRankedIndices(values)[index] ?? 0, values.length);
     }
 
-    if (value >= 0.25) {
-        return "border-amber-200 bg-amber-500/40 text-amber-900";
-    }
-
-    return "border-amber-100 bg-amber-500/20 text-amber-800";
+    return getValueClasses(value, Math.max(...values, 1));
 };
 
 const formatValue = (value: number) => {
@@ -271,23 +309,63 @@ function VectorStrip({ vectors }: { vectors: ReturnType<Step["getVectors"]> }) {
                 {vectors.map((item) => (
                     <div key={item.label}>
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                            <span className="w-28 shrink-0 text-xs font-semibold text-gray-500">
-                                {item.label}
-                            </span>
-                            <div className="flex flex-wrap gap-1.5">
-                                {item.vector.map((value, index) => (
-                                    <span
-                                        key={`${item.label}-${index}`}
-                                        title={item.legend[index] ?? `Position ${index}`}
-                                        className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-200 ${getPillClassName(value)}`}
-                                    >
-                                        {formatValue(value)}
-                                    </span>
-                                ))}
-                            </div>
+                            {item.label === "w_purpose" && item.matrixInfo && (
+                                <div className="flex flex-wrap gap-1.5">
+                                    <MatrixDisplay
+                                    label={item.matrixInfo.label ?? item.label}
+                                    rowLabels={item.matrixInfo.rowLabels}
+                                    colLabels={item.matrixInfo.colLabels}
+                                    matrix={item.matrixInfo.matrix}
+                                    />
+                                    <div className="pl-3 pt-3 flex flex-row items-center">
+                                        <span className="w-28 shrink-0 text-xs font-semibold text-gray-500">
+                                            {item.label}
+                                        </span>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {item.vector.map((value, index) => (
+                                                <span
+                                                    key={`${item.label}-${index}`}
+                                                    title={item.legend[index] ?? `Position ${index}`}
+                                                    className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-200 ${getPillClassName(
+                                                        value,
+                                                        item.vector,
+                                                        index,
+                                                        item.colorMode,
+                                                    )}`}
+                                                >
+                                                    {formatValue(value)}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {item.label !== "w_purpose" && (
+                                <>
+                                <span className="w-28 shrink-0 text-xs font-semibold text-gray-500">
+                                    {item.label}
+                                </span>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {item.vector.map((value, index) => (
+                                        <span
+                                            key={`${item.label}-${index}`}
+                                            title={item.legend[index] ?? `Position ${index}`}
+                                            className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-200 ${getPillClassName(
+                                                value,
+                                                item.vector,
+                                                index,
+                                                item.colorMode,
+                                            )}`}
+                                        >
+                                            {formatValue(value)}
+                                        </span>
+                                    ))}
+                                </div>
+                                </>
+                            )}
                         </div>
 
-                        {item.matrixInfo && (
+                        {item.matrixInfo && item.label !== "w_purpose" && (
                             <MatrixDisplay
                                 label={item.matrixInfo.label ?? item.label}
                                 rowLabels={item.matrixInfo.rowLabels}
@@ -296,6 +374,7 @@ function VectorStrip({ vectors }: { vectors: ReturnType<Step["getVectors"]> }) {
                             />
                         )}
                     </div>
+                    
                 ))}
                 </div>
             )}
@@ -400,6 +479,32 @@ export default function QuestionnaireWizard() {
                 >
                     <StepComponent />
                 </div>
+
+                {step.id === "dataset" && state.tableCount === "more" && (
+                    <div className="mt-4 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4">
+                        <svg
+                            className="mt-0.5 h-5 w-5 shrink-0 text-red-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                            />
+                        </svg>
+                        <div>
+                            <p className="text-sm font-bold text-red-700">Research Gap</p>
+                            <p className="mt-0.5 text-sm text-red-600">
+                                Simultaneous generation of more than 2 tables is currently an open research
+                                problem. None of the available tools support this configuration. Please select
+                                "Single table" or "Two tables" to continue.
+                            </p>
+                        </div>
+                    </div>
+                )}
 
                 {step.id !== "results" && (
                     <div className="mt-5">

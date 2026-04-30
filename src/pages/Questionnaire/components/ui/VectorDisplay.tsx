@@ -15,6 +15,7 @@ interface VectorConfig {
     values: number[];
     labels: string[];
     maxValue?: number;
+    colorMode?: "default" | "dataset-compatibility" | "ranked";
 }
 
 const DEFAULT_TOOLS = [
@@ -53,23 +54,27 @@ const getValueClasses = (value: number, maxValue: number) => {
 
     const normalizedValue = maxValue > 0 ? Math.min(Math.max(value / maxValue, 0), 1) : 0;
 
-    if (normalizedValue >= 0.8) {
-        return "border-amber-400 bg-amber-400 text-amber-950";
-    }
-
-    if (normalizedValue >= 0.6) {
-        return "border-amber-300 bg-amber-300 text-amber-950";
-    }
-
-    if (normalizedValue >= 0.4) {
-        return "border-amber-200 bg-amber-200 text-amber-900";
-    }
-
-    if (normalizedValue > 0) {
-        return "border-amber-100 bg-amber-100 text-amber-800";
-    }
-
+    if (normalizedValue >= 0.8) return "border-amber-400 bg-amber-400 text-amber-950";
+    if (normalizedValue >= 0.6) return "border-amber-300 bg-amber-300 text-amber-950";
+    if (normalizedValue >= 0.4) return "border-amber-200 bg-amber-200 text-amber-900";
+    if (normalizedValue > 0)    return "border-amber-100 bg-amber-100 text-amber-800";
     return "border-gray-200 bg-gray-100 text-gray-500";
+};
+
+// para w_dataset: verde si compatible, rojo si no
+const getDatasetCompatibilityClasses = (value: number, maxValue: number) => {
+    if (value === maxValue) {
+        return "border-emerald-400 bg-emerald-400 text-emerald-950";
+    }
+    return "border-red-300 bg-red-200 text-red-800";
+};
+
+
+const getRankedColorClasses = (rank: number, total: number) => {
+    if (rank === 0) return "border-emerald-500 bg-emerald-500 text-white";
+    if (rank === total - 1) return "border-red-500 bg-red-500 text-white";
+
+    return "border-yellow-400 bg-yellow-400 text-yellow-950";
 };
 
 const getBarWidthClass = (percentage: number) => {
@@ -89,8 +94,21 @@ const getBarWidthClass = (percentage: number) => {
     return "w-0";
 };
 
-const VectorSection = ({ name, formulaLabel, values, labels, maxValue }: VectorConfig) => {
+const VectorSection = ({ name, formulaLabel, values, labels, maxValue, colorMode = "default" }: VectorConfig) => {
     const resolvedMaxValue = maxValue ?? Math.max(...values, 1);
+    let resolvedMaxValueDataset = 0;
+    if(name === "w_dataset"){
+        const maxValueDataset = Math.max(...values);
+        resolvedMaxValueDataset = maxValueDataset;
+    }
+
+    const rankedIndices = colorMode === "ranked"
+        ? [...values.map((v, i) => ({ v, i }))]
+            .sort((a, b) => b.v - a.v)
+            .map((item, rank) => ({ index: item.i, rank }))
+            .sort((a, b) => a.index - b.index)
+            .map(item => item.rank)
+        : [];
 
     return (
         <details className="group rounded-xl border border-gray-200 bg-white shadow-sm" open>
@@ -108,14 +126,18 @@ const VectorSection = ({ name, formulaLabel, values, labels, maxValue }: VectorC
                 {values.map((value, index) => {
                     const label = labels[index] ?? `Position ${index}`;
 
+                    const pillClass =
+                        colorMode === "dataset-compatibility"
+                            ? getDatasetCompatibilityClasses(value, resolvedMaxValueDataset)
+                            : colorMode === "ranked"
+                            ? getRankedColorClasses(rankedIndices[index] ?? 0, values.length)
+                            : getValueClasses(value, resolvedMaxValue);
+
                     return (
                         <span
                             key={`${name}-${index}`}
-                            title={`Position ${index}: ${label}`}
-                            className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-300 ${getValueClasses(
-                                value,
-                                resolvedMaxValue,
-                            )}`}
+                            title={`${label}: ${formatValue(value)}`}
+                            className={`rounded-full border px-2 py-1 text-xs font-semibold tabular-nums transition-colors duration-300 ${pillClass}`}
                         >
                             {formatValue(value)}
                         </span>
@@ -166,13 +188,14 @@ function VectorDisplayComponent({
     St = [],
     tools = DEFAULT_TOOLS,
 }: VectorDisplayProps) {
-    const vectorSections: VectorConfig[] = [
+    const vectorSections = ([
         {
             name: "w_dataset",
             formulaLabel: `w_dataset [1x${w_dataset.length}]`,
             values: w_dataset,
             labels: DEFAULT_TOOLS,
             maxValue: 1,
+            colorMode: "dataset-compatibility",
         },
         {
             name: "w_purpose",
@@ -180,6 +203,7 @@ function VectorDisplayComponent({
             values: w_purpose,
             labels: DEFAULT_TOOLS,
             maxValue: 1,
+            colorMode: "ranked",
         },
         {
             name: "w_hardware",
@@ -187,8 +211,9 @@ function VectorDisplayComponent({
             values: w_hardware,
             labels: HARDWARE_LABELS,
             maxValue: 1.5,
+            colorMode: "ranked",
         }
-    ].filter((section) => section.values.length > 0);
+    ] satisfies VectorConfig[]).filter((section) => section.values.length > 0);
 
     return (
         <aside className="space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-3">
