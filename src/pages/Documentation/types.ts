@@ -29,7 +29,7 @@ export type ImageBlock = {
 	alt: string;
 	caption?: string;
 	src?: string;
-	assetKey?: "computer" | "diagram";
+	assetKey?: "computer" | "welcome" | "diagram";
 };
 
 export type NoteBlock = {

@@ -111,7 +111,7 @@ const Home = () => {
                 <div className="w-full bg-linear-to-r from-[#3A7F8F] to-[#4CA2B5] flex flex-col md:flex-row justify-between items-center md:items-start">
                     <div className="w-full md:w-[60%] flex flex-col text-white px-5 md:pl-18 py-12 md:py-20 space-y-6">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-                            Your Guide to Artificial Tables
+                            Your Guide to Synthetic Tables
                         </h2>
                         <p className="text-sm sm:text-base md:text-md font-light">
                             Answer a few questions about your dataset to receive personalized tool recommendations from our TDS Benchmark.

@@ -3,13 +3,15 @@ import { Layout } from "../Layout";
 import mockData from "./mock.json";
 import computerImg from "../../assets/computer.jpg";
 import diagramImg from "../../assets/diagram.svg";
+import welcomeImg from "../../assets/Welcome.png";
 import type { DocContentBlock, DocSection, ImageBlock } from "./types";
 
 const sections = mockData as DocSection[];
 
 const imageAssets = {
 	computer: computerImg,
-	diagram: diagramImg
+	diagram: diagramImg,
+	welcome: welcomeImg
 };
 
 const getImageSrc = (block: ImageBlock) => {
@@ -94,20 +96,28 @@ const Documentation = () => {
 				</ListTag>
 			);
 		}
-
 		if (block.type === "code") {
 			return (
 				<div
 					key={`${sectionId}-code-${index}`}
-					className="border border-gray-200 rounded-2xl overflow-hidden my-6"
+					className="border border-[#3A7F8F]/20 rounded-2xl overflow-hidden my-6"
 				>
-					<div className="px-4 py-2 bg-gray-100 text-xs text-gray-500 flex justify-between">
+					<div className="px-4 py-3 bg-[#3A7F8F]/10 text-xs font-medium text-gray-700 flex justify-between border-b border-[#3A7F8F]/10">
 						<span>{block.title ?? "Code Example"}</span>
 						<span>{block.language ?? "text"}</span>
 					</div>
 
-					<pre className="p-4 overflow-x-auto bg-[#0b1220] text-gray-100 text-xs md:text-sm leading-6">
-						<code>{block.code}</code>
+					<pre className="p-5 overflow-x-auto bg-[#3A7F8F]/5 text-xs md:text-sm leading-7 font-mono">
+						<code
+							className={`whitespace-pre ${block.language === "bash"
+									? "text-emerald-700"
+									: block.language === "python"
+										? "text-sky-800"
+										: "text-gray-800"
+								}`}
+						>
+							{block.code}
+						</code>
 					</pre>
 				</div>
 			);
@@ -128,7 +138,8 @@ const Documentation = () => {
 					<img
 						src={src}
 						alt={block.alt}
-						className="w-full max-w-3xl rounded-2xl border border-gray-200 shadow-sm"
+						className={`rounded-2xl border border-gray-200 shadow-sm mx-auto ${block.assetKey === "welcome" ? "w-1/2" : "w-full max-w-3xl"
+							}`}
 					/>
 
 					{block.caption && (
@@ -144,11 +155,10 @@ const Documentation = () => {
 			return (
 				<div
 					key={`${sectionId}-note-${index}`}
-					className={`rounded-2xl p-5 text-sm md:text-base leading-7 my-6 ${
-						block.variant === "warning"
+					className={`rounded-2xl p-5 text-sm md:text-base leading-7 my-6 ${block.variant === "warning"
 							? "bg-amber-50 text-amber-900 border border-amber-200"
 							: "bg-[#3A7F8F]/10 text-[#3A7F8F] border border-[#3A7F8F]/30"
-					}`}
+						}`}
 				>
 					{block.text}
 				</div>
@@ -180,11 +190,10 @@ const Documentation = () => {
 										key={section.id}
 										type="button"
 										onClick={() => setActiveId(section.id)}
-										className={`text-left w-full px-4 py-3 rounded-lg transition ${
-											isActive
+										className={`text-left w-full px-4 py-3 rounded-lg transition ${isActive
 												? "bg-[#3A7F8F] text-white"
 												: "bg-white text-gray-700 hover:bg-gray-100"
-										}`}
+											}`}
 									>
 										{section.title}
 									</button>
