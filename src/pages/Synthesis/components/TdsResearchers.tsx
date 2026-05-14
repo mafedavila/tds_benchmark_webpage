@@ -32,7 +32,7 @@ export const TDSResearchersCard = () => {
 
             <a
                 className="text-center mt-6 w-full bg-text-blue text-white py-3 rounded-xl hover:bg-[#3A7F8F] transition"
-                href="https://github.com/mafedavila/TDSbenchmark"
+                href="https://mafedavila.github.io/tds_benchmark_webpage/#/documentation"
                 target="_blank"
                 rel="noopener noreferrer"
             >

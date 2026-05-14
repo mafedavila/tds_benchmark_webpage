@@ -27,7 +27,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                         <li><Link to="/dissertation" className="hover:text-black cursor-pointer">Dissertation</Link></li>
                         <li><Link to="/documentation" className="hover:text-black cursor-pointer">Documentation</Link></li>
                         <li><Link to="/publications" className="hover:text-black cursor-pointer">Publications</Link></li>
-                        <li><Link to="/cv" className="hover:text-black cursor-pointer">CV</Link></li>
+                        <li><Link to="/cv" className="hover:text-black cursor-pointer">About Me</Link></li>
                     </ul>
 
                     <ul className="flex flex-row space-x-4">
@@ -50,7 +50,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     className="md:hidden text-gray-700"
                 >
                     <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
             </div>
