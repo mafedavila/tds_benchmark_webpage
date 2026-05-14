@@ -156,7 +156,7 @@ const STEPS: readonly Step[] = [
                     label: "w_purpose",
                     vector: w_purpose,
                     legend: TOOL_LEGEND,
-                    colorMode: "ranked",
+                    colorMode: "inverse_ranked",
                     matrixInfo: {
                         label: "M_bench",
                         rowLabels: M_BENCH_ROW_LABELS,
@@ -192,7 +192,7 @@ const STEPS: readonly Step[] = [
                     label: "w_hardware",
                     vector: w_hardware,
                     legend: TOOL_LEGEND,
-                    colorMode: "ranked",
+                    colorMode: "inverse_ranked",
                     matrixInfo: {
                         label: "M_comp",
                         rowLabels: M_COMP_ROW_LABELS,
@@ -218,9 +218,9 @@ const STEPS: readonly Step[] = [
                 legend: TOOL_LEGEND,
                 colorMode: "dataset-compatibility",
             },
-            { label: "w_purpose", vector: vectors.w_purpose, legend: TOOL_LEGEND, colorMode: "ranked" },
-            { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND, colorMode: "ranked" },
-            { label: "St", vector: vectors.St, legend: TOOL_LEGEND },
+            { label: "w_purpose", vector: vectors.w_purpose, legend: TOOL_LEGEND, colorMode: "inverse_ranked" },
+            { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND, colorMode: "inverse_ranked" },
+            { label: "St", vector: vectors.St, legend: TOOL_LEGEND, colorMode: "ranked" },
         ],
         isComplete: () => true,
     },
@@ -352,18 +352,16 @@ const StepProgress = ({ currentStep }: { currentStep: number }) => (
             return (
                 <div key={step.id} className="space-y-2">
                     <div
-                        className={`h-2 rounded-full transition-colors ${
-                            isCompleted
-                                ? "bg-amber-500"
-                                : isCurrent
-                                  ? "bg-amber-300"
-                                  : "bg-gray-200"
-                        }`}
+                        className={`h-2 rounded-full transition-colors ${isCompleted
+                            ? "bg-amber-500"
+                            : isCurrent
+                                ? "bg-amber-300"
+                                : "bg-gray-200"
+                            }`}
                     />
                     <p
-                        className={`text-center text-xs font-semibold ${
-                            isCurrent ? "text-amber-700" : "text-gray-500"
-                        }`}
+                        className={`text-center text-xs font-semibold ${isCurrent ? "text-amber-700" : "text-gray-500"
+                            }`}
                     >
                         {step.shortLabel}
                     </p>

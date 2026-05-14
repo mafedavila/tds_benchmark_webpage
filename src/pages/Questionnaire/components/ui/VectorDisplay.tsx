@@ -120,6 +120,7 @@ const StSection = ({
             idPrefix="St"
             values={St}
             labels={[...tools]}
+            colorMode="ranked"
             maxValue={100}
             showValueInTitle
             className="flex flex-wrap gap-1.5 border-t border-gray-100 px-3 py-3"
@@ -155,7 +156,7 @@ function VectorDisplayComponent({
                     values: w_purpose,
                     labels: toolLabels,
                     maxValue: 1,
-                    colorMode: "ranked",
+                    colorMode: "inverse_ranked",
                 },
                 {
                     name: "w_hardware",
@@ -163,7 +164,7 @@ function VectorDisplayComponent({
                     values: w_hardware,
                     labels: TOOL_LEGEND,
                     maxValue: 1.5,
-                    colorMode: "ranked",
+                    colorMode: "inverse_ranked",
                 },
             ] satisfies VectorSectionConfig[]
         ).filter((section) => section.values.length > 0);
@@ -173,7 +174,7 @@ function VectorDisplayComponent({
         <aside className="space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-3">
             <div>
                 <h2 className="text-sm font-bold text-gray-900">Computed vectors</h2>
-                <p className="text-xs text-gray-500">Updates as answers change</p>
+                <p className="text-xs text-gray-500">Results</p>
             </div>
 
             <div className="space-y-2">
