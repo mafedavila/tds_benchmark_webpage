@@ -13,35 +13,35 @@ interface RadarProps {
   toolName: string;
 }
 
-function getDynamicDomain(data: { value: number }[]): { max: number; ticks: number[] } {
-  const rawMax = Math.max(...data.map(d => d.value));
-  // Redondea al siguiente múltiplo de 2 para ticks limpios
-  const max = Math.ceil(rawMax / 2) * 2;
-  const step = max / 5;
-  const ticks = Array.from({ length: 6 }, (_, i) => Math.round(i * step * 10) / 10);
-  return { max, ticks };
-}
+const MAX_VALUE = 11;
 
 export default function RadarChartComponent({ data, toolName }: RadarProps) {
-  const { max, ticks } = getDynamicDomain(data);
+  const chartData = data.map((d) => ({
+    ...d,
+    displayValue: MAX_VALUE - d.value,
+  }));
 
   return (
     <div className="w-full h-64">
       <ResponsiveContainer>
-        <RadarChart data={data} startAngle={90} endAngle={-270}>
+        <RadarChart data={chartData} startAngle={90} endAngle={-270}>
           <PolarGrid gridType="circle" />
 
           <PolarAngleAxis dataKey="label" />
 
           <PolarRadiusAxis
             angle={90}
-            domain={[0, max]}
-            ticks={ticks as any}
+            domain={[0, MAX_VALUE]}
+            tickCount={6}
+            tickFormatter={(value) => String(MAX_VALUE - Number(value))}
             tick={{ fontSize: 10 }}
           />
 
           <Tooltip
-            formatter={(value: number) => [value.toFixed(2), toolName]}
+            formatter={(_, __, props) => [
+              Number(props.payload.value).toFixed(2),
+              toolName,
+            ]}
             contentStyle={{
               backgroundColor: "white",
               border: "1px solid #e5e7eb",
@@ -52,7 +52,7 @@ export default function RadarChartComponent({ data, toolName }: RadarProps) {
 
           <Radar
             name={toolName}
-            dataKey="value"
+            dataKey="displayValue"
             stroke="#3A7F8F"
             fill="#3A7F8F"
             fillOpacity={0.6}

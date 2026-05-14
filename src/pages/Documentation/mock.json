@@ -1,126 +1,69 @@
 [
-    {
-        "id": "overview",
-        "title": "Overview",
-        "summary": "A quick introduction to the TDS Benchmark platform.",
-        "content": [
             {
-                "type": "paragraph",
-                "text": "TDS Benchmark helps researchers and practitioners evaluate tabular data synthesis tools with a consistent and reproducible process."
-            },
-            {
-                "type": "paragraph",
-                "text": "You can compare tools across privacy, utility, robustness, and computational performance dimensions."
-            },
-            {
-                "type": "note",
-                "variant": "info",
-                "text": "Each section in this documentation is configured from JSON blocks, so adding richer content does not require component rewrites."
-            },
-            {
-                "type": "image",
-                "assetKey": "diagram",
-                "alt": "TDS benchmark flow diagram",
-                "caption": "High-level benchmark flow used for evaluation and decision support."
-            }
-        ]
-    },
-    {
-        "id": "getting-started",
-        "title": "Getting Started",
-        "summary": "How to begin using the benchmark in a few steps.",
-        "content": [
-            {
-                "type": "paragraph",
-                "text": "Start from the Synthesis page and answer questions about your dataset structure, temporal dependencies, and privacy requirements."
-            },
-            {
-                "type": "list",
-                "style": "ordered",
-                "items": [
-                "Upload and inspect your real tabular dataset.",
-                "Select synthesis goals (augmentation, balancing, or robust generation).",
-                "Choose evaluation priorities and compute constraints.",
-                "Review recommended tools and run benchmark outputs."
-                ]
-            },
-            {
-                "type": "image",
-                "assetKey": "computer",
-                "alt": "User working on benchmark interface",
-                "caption": "Main flow for end-users starts from the synthesis assistant."
-            }
-        ]
-    },
-    {
-        "id": "input-requirements",
-        "title": "Input Requirements",
-        "summary": "What data and metadata should be prepared before benchmarking.",
-        "content": [
-            {
-                "type": "paragraph",
-                "text": "Prepare your source data as clean tabular files with consistent schema and encoded missing values."
-            },
-            {
-                "type": "list",
-                "items": [
-                "Feature typing: numerical, categorical, binary, and temporal columns.",
-                "Target constraints: privacy budget, class imbalance objectives, and utility goals.",
-                "Runtime context: CPU or GPU availability, memory ceiling, and expected turnaround time."
-                ]
-            },
-            {
-                "type": "note",
-                "variant": "warning",
-                "text": "Inconsistent column typing between train and validation splits can invalidate metric comparisons."
-            }
-            ]
-    },
-    {
-        "id": "evaluation-metrics",
-        "title": "Evaluation Metrics",
-        "summary": "Understand each quality dimension used in the benchmark.",
-        "content": [
-            {
-                "type": "paragraph",
-                "text": "Metrics are grouped to show distribution alignment, relationship preservation, predictive utility, and privacy risk."
-            },
-            {
-                "type": "list",
-                "items": [
-                    "Marginal Distribution: fidelity of feature-level distributions.",
-                    "Dependency Structure: preservation of inter-column relationships.",
-                    "Utility: downstream model performance with synthetic data.",
-                    "Privacy and Robustness: leakage risk and stability under stress conditions."
-                ]
-            },
-            {
-                "type": "code",
-                "language": "json",
-                "title": "Example Metric Configuration",
-                "code": "{\n  \"metrics\": [\"marginal\", \"dependency\", \"utility\", \"privacy\"],\n  \"privacy_budget\": 1.0,\n  \"compute\": {\n    \"device\": \"cpu\",\n    \"max_runtime_minutes\": 45\n  }\n}"
-            }
-        ]
-    },
-    {
-        "id": "faq",
-        "title": "FAQ",
-        "summary": "Common questions from users and researchers.",
-        "content": [
-            {
-                "type": "list",
-                "items": [
-                "Q: Can I benchmark a custom synthesis model? A: Yes, align outputs to the framework's expected interface.",
-                "Q: Do I need a GPU? A: Not always. Many tools run on CPU with longer training times.",
-                "Q: Which metric is most important? A: Prioritize based on your objective (privacy or ML utility)."
-                ]
-            },
-            {
-                "type": "code",
-                "language": "bash",
-                "title": "Quick Start Command",
-                "code": "npm install\nnpm run dev"
-            }
-        ]
+    "id": "overview",
+    "title": "Welcome to the TDS Benchmark!",
+    "summary": "A framework for benchmarking and comparing Tabular Data Synthesis tools.",
+    "content": [
+        {
+        "type": "paragraph",
+        "text": "The TDS Benchmark is a reproducible framework for evaluating Tabular Data Synthesis (TDS) tools across datasets, metrics, and computational settings."
+        },
+        {
+        "type": "paragraph",
+        "text": "It helps researchers and practitioners compare synthetic data tools for privacy, utility, robustness, distribution similarity, dependency preservation, and runtime performance."
+        },
+        {
+        "type": "image",
+        "assetKey": "diagram",
+        "alt": "TDS benchmark overview diagram",
+        "caption": "The benchmark connects real datasets, synthesis tools, evaluation metrics, and decision support."
+        },
+        {
+        "type": "heading",
+        "level": 2,
+        "text": "Key Features"
+        },
+        {
+        "type": "paragraph",
+        "text": "🧪 Benchmark multiple TDS tools. Run and compare tools from different model families, including GANs, VAEs, Diffusion Models, Transformers, Bayesian Networks, and Hybrid approaches."
+        },
+        {
+        "type": "paragraph",
+        "text": "📊 Evaluate synthetic data quality. Measure how well synthetic datasets preserve marginal distributions, dependency structures, privacy, utility, robustness, and computational performance."
+        },
+        {
+        "type": "paragraph",
+        "text": "⚙️ Automate the full pipeline. The framework handles preprocessing, environment setup, synthetic data generation, evaluation, and result aggregation."
+        },
+        {
+        "type": "paragraph",
+        "text": "💻 Track computational resources. Monitor runtime, CPU usage, GPU usage, and memory consumption to understand whether a tool fits your hardware constraints."
+        },
+        {
+        "type": "paragraph",
+        "text": "🧭 Support tool selection. Use benchmark results together with dataset, purpose, and hardware requirements to identify suitable TDS tools for your use case."
+        },
+        {
+        "type": "heading",
+        "level": 2,
+        "text": "Get Started with your TDS Benchmark"
+        },
+        {
+        "type": "paragraph",
+        "text": "Start by cloning the repository, preparing your datasets, and running the benchmark pipeline for the tools you want to evaluate."
+        },
+        {
+        "type": "code",
+        "language": "bash",
+        "title": "Clone Repository",
+        "code": "git clone https://github.com/mafedavila/TDSbenchmark.git\ncd TDSbenchmark"
+        },
+        {
+        "type": "code",
+        "language": "bash",
+        "title": "Run Benchmark",
+        "code": "python benchmark.py"
+        }
+    ]
     }
 ]

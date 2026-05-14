@@ -1,3 +1,11 @@
+export type HeadingBlock = {
+
+	type: "heading";
+	level?: 1 | 2 | 3;
+	text: string;
+
+};
+
 export type ParagraphBlock = {
 	type: "paragraph";
 	text: string;
@@ -30,7 +38,7 @@ export type NoteBlock = {
 	text: string;
 };
 
-export type DocContentBlock = ParagraphBlock | ListBlock | CodeBlock | ImageBlock | NoteBlock;
+export type DocContentBlock = HeadingBlock | ParagraphBlock | ListBlock | CodeBlock | ImageBlock | NoteBlock;
 
 export type DocSection = {
 	id: string;
