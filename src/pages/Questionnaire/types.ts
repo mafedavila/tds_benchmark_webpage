@@ -45,5 +45,5 @@ export interface VectorResults {
     w_hardware: number[];
     Ft: number[];
     St: number[];
-    topTools: { name: string; score: number }[];
+    topTools: { name: string; urlDownload: string; score: number }[];
 }

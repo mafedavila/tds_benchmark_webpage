@@ -9,22 +9,9 @@ import {
 } from "./types";
 
 import { M_assess, M_eval, M_bench, M_comp } from "./matrixes";
+import { TOOLS, TOOLS_DATA, type ToolName } from "./tools";
 
-export const TOOLS = [
-    "AutoDiff",
-    "CTABGAN+",
-    "CTGAN",
-    "GANBLR++",
-    "GReaT",
-    "REaLTabFormer",
-    "SMOTE",
-    "TabDDPM",
-    "TabSyn",
-    "TabuLaMiddle",
-    "TVAE",
-] as const;
-
-export type ToolName = (typeof TOOLS)[number];
+export { TOOLS, TOOLS_DATA, type ToolName };
 
 export const PURPOSES = [
     Purpose.DataAugmentation,
@@ -163,7 +150,7 @@ export function computeAllVectors(state: QuestionnaireState): VectorResults {
     
     const Ft = computeFt(w_dataset, R_dataset);
     const St = computeSt(Ft, w_purpose, w_hardware);
-    const topTools = TOOLS.map((name, index) => ({ name, score: St[index] }))
+    const topTools = TOOLS_DATA.map((tool, index) => ({ ...tool, score: St[index] }))
         .filter((tool) => tool.score > 0)
         .sort((left, right) => right.score - left.score);
 

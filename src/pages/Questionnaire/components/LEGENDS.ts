@@ -1,3 +1,5 @@
+import { TOOLS } from "../tools";
+
 export const DATASET_LEGEND = [
     "Categorical",
     "Numerical",
@@ -33,18 +35,6 @@ export const M_BENCH_ROW_LABELS = [
 
 export const HARDWARE_LEGEND = ["CPU", "Memory", "GPU", "Runtime"];
 
-export const M_COMP_ROW_LABELS = HARDWARE_LEGEND;  
+export const M_COMP_ROW_LABELS = HARDWARE_LEGEND;
 
-export const TOOL_LEGEND = [
-    "AutoDiff",
-    "CTABGAN+",
-    "CTGAN",
-    "GANBLR++",
-    "GReaT",
-    "REaLTabFormer",
-    "SMOTE",
-    "TabDDPM",
-    "TabSyn",
-    "TabuLaMiddle",
-    "TVAE",
-];
+export const TOOL_LEGEND = [...TOOLS];

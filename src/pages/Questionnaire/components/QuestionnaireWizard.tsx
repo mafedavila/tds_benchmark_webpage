@@ -9,6 +9,7 @@ import {
     computeWPurpose,
     computeWHardware,
 } from "../calculations";
+import { getToolDownloadHref } from "../tools";
 import { M_assess, M_eval, M_bench, M_comp } from "../matrixes";
 import {
     DATASET_LEGEND,
@@ -86,6 +87,13 @@ const ResultsStep = ({ vectors }: { vectors: VectorResults }) => (
                     <p className="mt-2 text-sm font-semibold text-gray-600">
                         {tool.score.toFixed(1)}% match
                     </p>
+                    <a
+                        href={getToolDownloadHref(tool.urlDownload)}
+                        download
+                        className="mt-4 inline-block rounded-lg bg-[#3A7F8F] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2f6a78]"
+                    >
+                        Download tool
+                    </a>
                 </div>
             ))}
         </div>

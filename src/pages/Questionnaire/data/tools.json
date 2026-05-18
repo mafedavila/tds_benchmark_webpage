@@ -1,0 +1,13 @@
+[
+    { "name": "AutoDiff", "urlDownload": "files/AutoDiff.zip" },
+    { "name": "CTABGAN+", "urlDownload": "files/CTABGAN+.zip" },
+    { "name": "CTGAN", "urlDownload": "files/CTGAN.zip" },
+    { "name": "GANBLR++", "urlDownload": "files/GANBLR++.zip" },
+    { "name": "GReaT", "urlDownload": "files/GReaT.zip" },
+    { "name": "REaLTabFormer", "urlDownload": "files/REaLTabFormer.zip" },
+    { "name": "SMOTE", "urlDownload": "files/SMOTE.zip" },
+    { "name": "TabDDPM", "urlDownload": "files/TabDDPM.zip" },
+    { "name": "TabSyn", "urlDownload": "files/TabSyn.zip" },
+    { "name": "TabuLaMiddle", "urlDownload": "files/TabuLaMiddle.zip" },
+    { "name": "TVAE", "urlDownload": "files/TVAE.zip" }
+]
