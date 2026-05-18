@@ -1,5 +1,5 @@
 // Rows: Categorical, Numerical, Temporal, Text, Mixed Cat/Num, 2 Tables, N Tables.
-// Columns:AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REaLTabFormer, SMOTE, TVAE, TabDDPM, TabSyn, TabuLaMiddle
+// Columns:AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REaLTabFormer, SMOTE, TabDDPM, TabSyn, TabuLaMiddle, TVAE
 export const M_assess: number[][] = [
     // Categorical
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -8,7 +8,7 @@ export const M_assess: number[][] = [
     // Temporal
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
     // Text
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0],
     // Mixed Cat/Num
     [1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1],
     // 2 Tables
@@ -29,7 +29,7 @@ export const M_eval: number[][] = [
 ];
 
 // Rows: Marginal Distribution, Dependency Structure, Robustness, Privacy, Utility, Computational Performance.
-// Column Metrics: AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REalTabFormer, SMOTE, TVAE, TabDDPM, TabSyn, TabuLaMiddle
+// Column Metrics: AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REalTabFormer, SMOTE, TabDDPM, TabSyn, TabuLaMiddle, TVAE
 export const M_bench: number[][] = [
     [3.83, 6.90, 7.43, 10.37, 8.58, 3.60, 1.27, 7.82, 6.15, 2.07, 8.17],
     [4.21, 6.57, 8.36, 10.29, 9.18, 3.46, 4.39, 9.75, 6.86, 6.79, 6.46],
@@ -40,7 +40,7 @@ export const M_bench: number[][] = [
 ];
 
 // Rows: mean CPU, mean memory, mean GPU, runtime.
-// Column Metrics: AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REalTabFormer, SMOTE, TVAE, TabDDPM, TabSyn, TabuLaMiddle
+// Column Metrics: AutoDiff, CTABGAN+, CTGAN, GANBLR++, GReaT, REalTabFormer, SMOTE, TabDDPM, TabSyn, TabuLaMiddle, TVAE
 export const M_comp: number[][] = [
     [5.47, 7.87, 4.60, 11.33, 2.07, 3.07, 10.53, 3.87, 6.93, 10.60, 4.33],
     [3.33, 6.33, 1.87, 4.47, 2.00, 10.67, 6.27, 9.00, 9.00, 12.40, 6.13],
