@@ -20,6 +20,7 @@ interface VectorSectionConfig {
     labels: string[];
     maxValue?: number;
     colorMode?: ColorMode;
+    showLabels?: boolean;
 }
 
 const SectionShell = ({
@@ -52,6 +53,7 @@ const VectorSection = ({
     labels,
     maxValue,
     colorMode = "default",
+    showLabels = false,
 }: VectorSectionConfig) => (
     <SectionShell name={name} formulaLabel={formulaLabel}>
         <VectorPills
@@ -60,6 +62,7 @@ const VectorSection = ({
             labels={labels}
             colorMode={colorMode}
             maxValue={maxValue}
+            showLabels={showLabels}
             showValueInTitle
             className="flex flex-wrap gap-1.5 border-t border-gray-100 px-3 py-3"
         />
@@ -122,6 +125,7 @@ const StSection = ({
             labels={[...tools]}
             colorMode="ranked"
             maxValue={100}
+            showLabels
             showValueInTitle
             className="flex flex-wrap gap-1.5 border-t border-gray-100 px-3 py-3"
         />
@@ -149,6 +153,7 @@ function VectorDisplayComponent({
                     labels: toolLabels,
                     maxValue: 1,
                     colorMode: "dataset-compatibility",
+                    showLabels: true,
                 },
                 {
                     name: "w_purpose",
@@ -157,6 +162,7 @@ function VectorDisplayComponent({
                     labels: toolLabels,
                     maxValue: 1,
                     colorMode: "inverse_ranked",
+                    showLabels: true,
                 },
                 {
                     name: "w_hardware",
@@ -165,6 +171,7 @@ function VectorDisplayComponent({
                     labels: TOOL_LEGEND,
                     maxValue: 1.5,
                     colorMode: "inverse_ranked",
+                    showLabels: true,
                 },
             ] satisfies VectorSectionConfig[]
         ).filter((section) => section.values.length > 0);

@@ -47,6 +47,8 @@ interface VectorViewModel {
     legend: string[];
     colorMode?: ColorMode;
     matrixInfo?: MatrixInfo;
+    /** When true, renders the tool name below each numeric value in the pills. */
+    showLabels?: boolean;
 }
 
 type StepId = "dataset" | "purpose" | "hardware" | "results";
@@ -127,6 +129,7 @@ const STEPS: readonly Step[] = [
                     vector: w_dataset,
                     legend: TOOL_LEGEND,
                     colorMode: "dataset-compatibility",
+                    showLabels: true,
                     matrixInfo: {
                         label: "M_assess",
                         rowLabels: M_ASSESS_ROW_LABELS,
@@ -165,6 +168,7 @@ const STEPS: readonly Step[] = [
                     vector: w_purpose,
                     legend: TOOL_LEGEND,
                     colorMode: "inverse_ranked",
+                    showLabels: true,
                     matrixInfo: {
                         label: "M_bench",
                         rowLabels: M_BENCH_ROW_LABELS,
@@ -201,6 +205,7 @@ const STEPS: readonly Step[] = [
                     vector: w_hardware,
                     legend: TOOL_LEGEND,
                     colorMode: "inverse_ranked",
+                    showLabels: true,
                     matrixInfo: {
                         label: "M_comp",
                         rowLabels: M_COMP_ROW_LABELS,
@@ -225,10 +230,23 @@ const STEPS: readonly Step[] = [
                 vector: vectors.w_dataset,
                 legend: TOOL_LEGEND,
                 colorMode: "dataset-compatibility",
+                showLabels: true,
             },
-            { label: "w_purpose", vector: vectors.w_purpose, legend: TOOL_LEGEND, colorMode: "inverse_ranked" },
-            { label: "w_hardware", vector: vectors.w_hardware, legend: TOOL_LEGEND, colorMode: "inverse_ranked" },
-            { label: "St", vector: vectors.St, legend: TOOL_LEGEND, colorMode: "ranked" },
+            {
+                label: "w_purpose",
+                vector: vectors.w_purpose,
+                legend: TOOL_LEGEND,
+                colorMode: "inverse_ranked",
+                showLabels: true,
+            },
+            {
+                label: "w_hardware",
+                vector: vectors.w_hardware,
+                legend: TOOL_LEGEND,
+                colorMode: "inverse_ranked",
+                showLabels: true,
+            },
+            { label: "St", vector: vectors.St, legend: TOOL_LEGEND, colorMode: "ranked", showLabels: true },
         ],
         isComplete: () => true,
     },
@@ -245,6 +263,7 @@ const VectorRow = memo(function VectorRow({ item }: { item: VectorViewModel }) {
                 values={item.vector}
                 labels={item.legend}
                 colorMode={item.colorMode}
+                showLabels={item.showLabels}
             />
         </>
     );
