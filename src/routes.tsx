@@ -9,6 +9,8 @@ import Dissertation from "./pages/Dissertation/Dissertation";
 import Documentation from "./pages/Documentation/Documentation";
 import QuestionnaireWizard from "./pages/Questionnaire/components/QuestionnaireWizard";
 import { QuestionnaireProvider } from "./pages/Questionnaire/store";
+import ContributionWizard from "./pages/Contribution/components/ContributionWizard";
+import { ContributionProvider } from "./pages/Contribution/store";
 
 const AppRoutes = () => (
     <HashRouter>
@@ -28,6 +30,14 @@ const AppRoutes = () => (
             <Route path="/cv" element={<Curriculum />} />
             <Route path="/dissertation" element={<Dissertation />} />
             <Route path="/documentation" element={<Documentation />} />
+            <Route
+                path="/contribution"
+                element={
+                    <ContributionProvider>
+                        <ContributionWizard />
+                    </ContributionProvider>
+                }
+            />
         </Routes>
         </Suspense>
     </HashRouter>

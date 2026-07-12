@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export const TDSResearchersCard = () => {
+    const navigate = useNavigate();
 
     return (
         <div className="w-full bg-white rounded-2xl shadow-md p-8 flex flex-col gap-4">
@@ -30,14 +33,12 @@ export const TDSResearchersCard = () => {
                 </li>
             </ul>
 
-            <a
+            <button
                 className="text-center mt-6 w-full bg-text-blue text-white py-3 rounded-xl hover:bg-[#3A7F8F] transition"
-                href="https://mafedavila.github.io/tds_benchmark_webpage/#/documentation"
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => navigate("/contribution")}
             >
                 Select Option
-            </a>
+            </button>
         </div>
     );
 };

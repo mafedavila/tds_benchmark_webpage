@@ -26,6 +26,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                         <li><Link to="/synthesis" className="hover:text-black cursor-pointer">Synthesis</Link></li>
                         <li><Link to="/dissertation" className="hover:text-black cursor-pointer">Dissertation</Link></li>
                         <li><Link to="/documentation" className="hover:text-black cursor-pointer">Documentation</Link></li>
+                        <li><Link to="/contribution" className="hover:text-black cursor-pointer">Contribution</Link></li>
                         <li><Link to="/publications" className="hover:text-black cursor-pointer">Publications</Link></li>
                         <li><Link to="/cv" className="hover:text-black cursor-pointer">About Me</Link></li>
                     </ul>
@@ -60,6 +61,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 <div className="md:hidden bg-white shadow-md px-5 py-3 space-y-4 text-gray-600 font-medium">
                     <Link to="/publications" className="block hover:text-black">Publications</Link>
                     <Link to="/documentation" className="block hover:text-black">Documentation</Link>
+                    <Link to="/contribution" className="block hover:text-black">Contribution</Link>
                     <Link to="/synthesis" className="block hover:text-black">Synthesis</Link>
                     <Link to="/dissertation" className="block hover:text-black">Dissertation</Link>
                     <Link to="/cv" className="block hover:text-black">CV</Link>
