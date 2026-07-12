@@ -1,8 +1,11 @@
 import { useCallback, useState, type FC } from "react";
 
 import { Layout } from "../../Layout";
+import { ConfigStep } from "./steps/ConfigStep";
+import { RequirementsStep } from "./steps/RequirementsStep";
+import { ToolNameStep } from "./steps/ToolNameStep";
 
-type StepId = "tool" | "datasets" | "implementation" | "results" | "submission";
+type StepId = "tool" | "requirements" | "config" | "runtool" | "results" | "submission";
 
 interface Step {
     id: StepId;
@@ -12,9 +15,6 @@ interface Step {
     component: FC;
 }
 
-const ToolStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Tool details placeholder</div>;
-const DatasetsStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Dataset selection placeholder</div>;
-const ImplementationStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Implementation placeholder</div>;
 const ResultsStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Results placeholder</div>;
 const SubmissionStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Contribution submission placeholder</div>;
 
@@ -24,21 +24,28 @@ const STEPS: readonly Step[] = [
         title: "About your tool",
         subtitle: "Provide the information needed to reproduce your environment.",
         shortLabel: "Tool",
-        component: ToolStep,
+        component: ToolNameStep,
     },
     {
-        id: "datasets",
-        title: "Benchmark datasets",
-        subtitle: "Select the datasets your tool was evaluated against.",
-        shortLabel: "Datasets",
-        component: DatasetsStep,
+        id: "requirements",
+        title: "Requirements",
+        subtitle: "Declare the Python environment and dependencies needed by your tool.",
+        shortLabel: "Requirements",
+        component: RequirementsStep,
     },
     {
-        id: "implementation",
-        title: "Implementation",
-        subtitle: "Add the code required to run your tool in the benchmark.",
-        shortLabel: "Implementation",
-        component: ImplementationStep,
+        id: "config",
+        title: "Config",
+        subtitle: "Select datasets and review the config.json generated for the benchmark.",
+        shortLabel: "Config",
+        component: ConfigStep,
+    },
+    {
+        id: "runtool",
+        title: "Run Tool",
+        subtitle: "Provide the code needed to run your tool on the benchmark datasets.",
+        shortLabel: "Run Tool",
+        component: () => <div className="rounded-2xl bg-white p-6 text-gray-600">Run Tool placeholder</div>,
     },
     {
         id: "results",

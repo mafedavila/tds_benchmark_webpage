@@ -21,8 +21,8 @@ export type ContributionAction =
 
 export const initialContributionState: ContributorState = {
     toolName: "",
-    pythonVersion: "",
-    requirements: [],
+    pythonVersion: "3.9",
+    requirements: [ "pandas", "numpy", "scikit-learn"],
     needsSpecialTorch: false,
     specialTorchCommand: "",
     experiments: [],
