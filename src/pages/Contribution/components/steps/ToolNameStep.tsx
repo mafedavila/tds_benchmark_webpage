@@ -1,5 +1,5 @@
 import { DATASET_CATALOG } from "../../data/datasetsCatalog";
-import { SMOTE_RUN_TOOL_PY } from "../../generators/runToolPy";
+import { SMOTE_TRAIN_MODEL_CODE } from "../../generators/runToolPy";
 import { useContribution } from "../../store";
 
 const SMOTE_REQUIREMENTS = [
@@ -28,7 +28,7 @@ export function ToolNameStep() {
             type: "setExperiments",
             experiments: [{ toolname: "smote", ...diabetesDataset }],
         });
-        dispatch({ type: "setRunToolModelCode", runToolModelCode: SMOTE_RUN_TOOL_PY });
+        dispatch({ type: "setRunToolModelCode", runToolModelCode: SMOTE_TRAIN_MODEL_CODE });
         dispatch({ type: "setResults", results: { perDataset: [] } });
         dispatch({ type: "setWantsToContribute", wantsToContribute: null });
         dispatch({ type: "setContributionType", contributionType: null });

@@ -2,7 +2,9 @@ import { useCallback, useState, type FC } from "react";
 
 import { Layout } from "../../Layout";
 import { ConfigStep } from "./steps/ConfigStep";
+import { DownloadFolderStep } from "./steps/DownloadFolderStep";
 import { RequirementsStep } from "./steps/RequirementsStep";
+import { RunToolStep } from "./steps/RunToolStep";
 import { ToolNameStep } from "./steps/ToolNameStep";
 
 type StepId = "tool" | "requirements" | "config" | "runtool" | "results" | "submission";
@@ -16,7 +18,6 @@ interface Step {
 }
 
 const ResultsStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Results placeholder</div>;
-const SubmissionStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Contribution submission placeholder</div>;
 
 const STEPS: readonly Step[] = [
     {
@@ -45,7 +46,7 @@ const STEPS: readonly Step[] = [
         title: "Run Tool",
         subtitle: "Provide the code needed to run your tool on the benchmark datasets.",
         shortLabel: "Run Tool",
-        component: () => <div className="rounded-2xl bg-white p-6 text-gray-600">Run Tool placeholder</div>,
+        component: RunToolStep,
     },
     {
         id: "results",
@@ -56,15 +57,15 @@ const STEPS: readonly Step[] = [
     },
     {
         id: "submission",
-        title: "Contribution",
-        subtitle: "Choose how you would like to submit your benchmark contribution.",
-        shortLabel: "Submit",
-        component: SubmissionStep,
+        title: "Download folder",
+        subtitle: "Generate the tool folder expected by the benchmark repository.",
+        shortLabel: "Download",
+        component: DownloadFolderStep,
     },
 ] as const;
 
 const StepProgress = ({ currentStep }: { currentStep: number }) => (
-    <div className="mb-6 grid grid-cols-5 gap-2">
+    <div className="mb-6 grid gap-2" style={{ gridTemplateColumns: `repeat(${STEPS.length}, minmax(0, 1fr))` }}>
         {STEPS.map((step, index) => {
             const isCompleted = index < currentStep;
             const isCurrent = index === currentStep;
