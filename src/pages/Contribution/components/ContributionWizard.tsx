@@ -30,7 +30,7 @@ const STEPS: readonly Step[] = [
     {
         id: "requirements",
         title: "Requirements",
-        subtitle: "Now, please specify the Python version it requires (default is 3.9) and the packages required. If necessary, you can add the specific version of the package. At the end, copy the copy th requirements.txt and python- version.txt files. Also, if necessary, e special- torch.txt file.",
+        subtitle: "Now, please specify the Python version it requires (default is 3.9) and the packages required. If necessary, you can add the specific version of the package. At the end, copy the copy th requirements.txt and python- version.txt files. Also, if necessary, you can add a special- torch.txt file.",
         shortLabel: "Requirements",
         component: RequirementsStep,
     },
