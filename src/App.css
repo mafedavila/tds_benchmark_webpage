@@ -65,3 +65,72 @@ p{
     font-size: 25px;
     font-weight: 600;
 }
+
+/* Visual Studio Code Dark+ inspired syntax colors for generated files. */
+.code-block-vscode pre,
+.code-block-vscode code {
+    font-family: "Cascadia Code", "Cascadia Mono", Consolas, "Courier New", monospace;
+    tab-size: 4;
+}
+
+.code-block-vscode .token.comment,
+.code-block-vscode .token.prolog,
+.code-block-vscode .token.doctype,
+.code-block-vscode .token.cdata {
+    color: #6a9955;
+}
+
+.code-block-vscode .token.punctuation {
+    color: #d4d4d4;
+}
+
+.code-block-vscode .token.namespace {
+    opacity: 0.8;
+}
+
+.code-block-vscode .token.property,
+.code-block-vscode .token.tag,
+.code-block-vscode .token.constant,
+.code-block-vscode .token.symbol,
+.code-block-vscode .token.variable {
+    color: #9cdcfe;
+}
+
+.code-block-vscode .token.boolean,
+.code-block-vscode .token.number {
+    color: #b5cea8;
+}
+
+.code-block-vscode .token.selector,
+.code-block-vscode .token.attr-name,
+.code-block-vscode .token.string,
+.code-block-vscode .token.char,
+.code-block-vscode .token.inserted {
+    color: #ce9178;
+}
+
+.code-block-vscode .token.operator,
+.code-block-vscode .token.entity,
+.code-block-vscode .token.url {
+    color: #d4d4d4;
+}
+
+.code-block-vscode .token.atrule,
+.code-block-vscode .token.attr-value,
+.code-block-vscode .token.keyword {
+    color: #c586c0;
+}
+
+.code-block-vscode .token.function {
+    color: #dcdcaa;
+}
+
+.code-block-vscode .token.class-name,
+.code-block-vscode .token.builtin {
+    color: #4ec9b0;
+}
+
+.code-block-vscode .token.regex,
+.code-block-vscode .token.important {
+    color: #d16969;
+}

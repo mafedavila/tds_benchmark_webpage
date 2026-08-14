@@ -4,7 +4,7 @@ import { CodeBlock } from "../CodeBlock";
 import { DATASET_CATALOG } from "../../data/datasetsCatalog";
 import { generateConfigJson } from "../../generators/configJson";
 import { useContribution } from "../../store";
-import type { ColumnTypes, ContributorExperiment, DatasetCatalogEntry, ProblemType } from "../../types";    
+import type { ColumnTypes, ContributorExperiment, DatasetCatalogEntry } from "../../types";
 
 type ArrayColumnKey = "categorical" | "continuous" | "integer" | "log" | "general" | "non_categorical";
 
@@ -228,14 +228,23 @@ export function ConfigStep() {
         () => new Set(state.experiments.map((experiment) => experiment.dataset)),
         [state.experiments],
     );
-    const availableDatasets = DATASET_CATALOG.filter((entry) => !selectedDatasets.has(entry.dataset));
+    const availableDatasets = useMemo(
+        () => DATASET_CATALOG.filter((entry) => !selectedDatasets.has(entry.dataset)),
+        [selectedDatasets],
+    );
+    const selectedDatasetIsAvailable = availableDatasets.some(
+        (entry) => entry.dataset === selectedDataset,
+    );
+    const activeDataset = selectedDatasetIsAvailable
+        ? selectedDataset
+        : (availableDatasets[0]?.dataset ?? "");
 
     const updateExperiments = (experiments: ContributorExperiment[]) => {
         dispatch({ type: "setExperiments", experiments });
     };
 
     const addDataset = () => {
-        const entry = DATASET_CATALOG.find((dataset) => dataset.dataset === selectedDataset) ?? availableDatasets[0];
+        const entry = availableDatasets.find((dataset) => dataset.dataset === activeDataset);
 
         if (!entry || selectedDatasets.has(entry.dataset)) {
             return;
@@ -279,10 +288,14 @@ export function ConfigStep() {
                         <span className="text-sm font-semibold text-gray-800">Add Dataset</span>
                         <div className="mt-2 flex gap-2">
                             <select
-                                value={selectedDataset}
+                                value={activeDataset}
                                 onChange={(event) => setSelectedDataset(event.target.value)}
+                                disabled={availableDatasets.length === 0}
                                 className="min-w-0 flex-1 rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
                             >
+                                {availableDatasets.length === 0 ? (
+                                    <option value="">All datasets have been added</option>
+                                ) : null}
                                 {availableDatasets.map((entry) => (
                                     <option key={entry.dataset} value={entry.dataset}>
                                         {entry.dataset}
@@ -327,24 +340,22 @@ export function ConfigStep() {
                         <div className="grid gap-3 sm:grid-cols-2">
                             <label className="block">
                                 <span className="text-sm font-semibold text-gray-800">problem_type</span>
-                                <select
+                                <input
+                                    type="text"
                                     value={experiment.problem_type}
-                                    onChange={(event) => updateExperiment(index, {
-                                        problem_type: event.target.value as ProblemType,
-                                    })}
-                                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
-                                >
-                                    <option value="classification">classification</option>
-                                    <option value="regression">regression</option>
-                                </select>
+                                    readOnly
+                                    aria-readonly="true"
+                                    className="mt-2 w-full cursor-not-allowed rounded-lg border border-gray-200 bg-gray-100 px-4 py-3 text-sm text-gray-600"
+                                />
                             </label>
                             <label className="block">
                                 <span className="text-sm font-semibold text-gray-800">target</span>
                                 <input
                                     type="text"
                                     value={experiment.target}
-                                    onChange={(event) => updateExperiment(index, { target: event.target.value })}
-                                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
+                                    readOnly
+                                    aria-readonly="true"
+                                    className="mt-2 w-full cursor-not-allowed rounded-lg border border-gray-200 bg-gray-100 px-4 py-3 text-sm text-gray-600"
                                 />
                             </label>
                         </div>

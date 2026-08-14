@@ -96,6 +96,7 @@ export function RequirementsStep() {
                             <div key={index} className="grid gap-3 sm:grid-cols-[1fr_160px_auto]">
                                 <input
                                     type="text"
+                                    title="Name of the package (e.g., pandas, numpy, scikit-learn)"
                                     value={row.name}
                                     onChange={(event) => updateRow(index, { name: event.target.value })}
                                     placeholder="pandas"
@@ -103,6 +104,7 @@ export function RequirementsStep() {
                                 />
                                 <input
                                     type="text"
+                                    title="Version of the package (e.g., 1.0.0, 2.0.0)"
                                     value={row.version}
                                     onChange={(event) => updateRow(index, { version: event.target.value })}
                                     placeholder="optional"
