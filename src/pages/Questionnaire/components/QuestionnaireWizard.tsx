@@ -94,7 +94,7 @@ const ResultsStep = ({ vectors }: { vectors: VectorResults }) => (
                         download
                         className="mt-4 inline-block rounded-lg bg-[#3A7F8F] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2f6a78]"
                     >
-                        Download tool
+                        Download Notebook
                     </a>
                 </div>
             ))}
