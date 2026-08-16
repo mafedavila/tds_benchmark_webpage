@@ -94,30 +94,44 @@ export function RequirementsStep() {
                     <div className="space-y-3">
                         {rows.map((row, index) => (
                             <div key={index} className="grid gap-3 sm:grid-cols-[1fr_160px_auto]">
-                                <input
-                                    type="text"
-                                    title="Name of the package (e.g., pandas, numpy, scikit-learn)"
-                                    value={row.name}
-                                    onChange={(event) => updateRow(index, { name: event.target.value })}
-                                    placeholder="pandas"
-                                    className="rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
-                                />
-                                <input
-                                    type="text"
-                                    title="Version of the package (e.g., 1.0.0, 2.0.0)"
-                                    value={row.version}
-                                    onChange={(event) => updateRow(index, { version: event.target.value })}
-                                    placeholder="optional"
-                                    className="rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => removeRow(index)}
-                                    disabled={index < 3 || (rows.length === 1 && !row.name && !row.version)}
-                                    className="rounded-lg border border-gray-200 px-3 py-3 text-sm font-semibold text-gray-500 transition hover:border-red-200 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-40"
-                                >
-                                    Remove
-                                </button>
+                                <label className="block">
+                                    <span className="mb-1 block text-sm font-semibold text-gray-800">
+                                        Package name
+                                    </span>
+                                    <input
+                                        type="text"
+                                        title="Name of the package (e.g., pandas, numpy, scikit-learn)"
+                                        value={row.name}
+                                        onChange={(event) => updateRow(index, { name: event.target.value })}
+                                        placeholder="pandas"
+                                        className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
+                                    />
+                                </label>
+                            
+                                <label className="block">
+                                    <span className="mb-1 block text-sm font-semibold text-gray-800">
+                                        Version
+                                    </span>
+                                    <input
+                                        type="text"
+                                        title="Version of the package (e.g., 1.0.0, 2.0.0)"
+                                        value={row.version}
+                                        onChange={(event) => updateRow(index, { version: event.target.value })}
+                                        placeholder="optional"
+                                        className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
+                                    />
+                                </label>
+                            
+                                <div className="flex items-end">
+                                    <button
+                                        type="button"
+                                        onClick={() => removeRow(index)}
+                                        disabled={index < 3 || (rows.length === 1 && !row.name && !row.version)}
+                                        className="w-full rounded-lg border border-gray-200 px-3 py-3 text-sm font-semibold text-gray-500 transition hover:border-red-200 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-40"
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
