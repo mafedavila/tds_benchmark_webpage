@@ -7,7 +7,7 @@ import { RequirementsStep } from "./steps/RequirementsStep";
 import { RunToolStep } from "./steps/RunToolStep";
 import { ToolNameStep } from "./steps/ToolNameStep";
 
-type StepId = "tool" | "requirements" | "config" | "runtool" | "results" | "submission";
+type StepId = "tool" | "requirements" | "config" | "runtool" | "submission";
 
 interface Step {
     id: StepId;
@@ -16,8 +16,6 @@ interface Step {
     shortLabel: string;
     component: FC;
 }
-
-const ResultsStep = () => <div className="rounded-2xl bg-white p-6 text-gray-600">Results placeholder</div>;
 
 const STEPS: readonly Step[] = [
     {
@@ -47,13 +45,6 @@ const STEPS: readonly Step[] = [
         subtitle: "This step provides you with a sample run_tool.py file using SMOTE example. You can use the panel on the left to adjust the train_model function according to your tool's need. Remember to import your model in the preamble.",
         shortLabel: "Run Tool",
         component: RunToolStep,
-    },
-    {
-        id: "results",
-        title: "Results",
-        subtitle: "Report the benchmark results for each evaluated dataset.",
-        shortLabel: "Results",
-        component: ResultsStep,
     },
     {
         id: "submission",
