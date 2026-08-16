@@ -134,6 +134,12 @@ const Home = () => {
                             >
                                 For Users
                             </button>
+                            <button
+                                className="bg-white text-text-blue font-semibold px-6 py-3 rounded-lg w-full sm:w-auto"
+                                onClick={() => navigate("/contribution")}
+                            >
+                                For Contributions
+                            </button>
                         </div>
                     </div>
                 </div>
